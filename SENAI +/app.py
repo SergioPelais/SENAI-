@@ -12,7 +12,8 @@ EMAIL_REMETENTE = os.getenv("EMAIL_REMETENTE")
 EMAIL_SENHA = os.getenv("EMAIL_SENHA")
 
 app = Flask(__name__)
-alo = 0
+numero = 0
+msg2 = ''
 
 app.config['SECRET_KEY'] = 'Senai@791'
  
@@ -26,6 +27,7 @@ def formulario ():
 
 @app.route("/enviar", methods=["GET", "POST"])
 def envio():
+    global numero, msg2
     resultado = None
 
     if request.method == "POST":
@@ -57,9 +59,24 @@ def envio():
 
     return redirect(url_for('login', resultado = resultado))
 
+@app.route('/conferir', methods=["GET", "POST"])
+def conferir ():
+    global numero, msg2
+    cod = request.form['codigo']
+    
+    print(cod,' == ', numero)
+    if str(cod) == str(numero):
+        msg2 = "Código válido"
+        return render_template('tela2.html')
+    else:
+        msg2 = "Código inválido"
+        return redirect(url_for('login'))
+    
+
 @app.route('/tela1')
 def login ():
-    return render_template('tela1.html')
+    global msg2
+    return render_template('tela1.html',msg = msg2)
 
 @app.route('/acessar')
 def acessar ():

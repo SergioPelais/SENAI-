@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 body {
     font-family: 'Inter', sans-serif;
@@ -15,7 +14,7 @@ body {
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-image: url(pexels-iriser-673803.jpg);
+    background-image: url(https://static.portaldaindustria.com.br/portaldaindustria/noticias/media/imagem_plugin/cardagenciafotoindustria.jpg);
     background-size: cover;
 }
 
@@ -26,6 +25,8 @@ body {
     padding: 40px;
     box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
     gap: 5px;
+    opacity: 0.5;
+    background-color: #cb1201;
     
 }
 
@@ -77,11 +78,11 @@ body {
 }
 
 .formLogin a:hover {
-    color: #f72585;
+    color: #de1402;
 }
 
 .btn {
-    background-color: #f72585;
+    background-color: #cb1201;
     color: #fff;
     font-size: 14px;
     font-weight: 600;
@@ -94,6 +95,6 @@ body {
 
 .btn:hover {
     transform: scale(1.05);
-    background-color: #ff0676;
+    background-color: #e11300;
 
 }
