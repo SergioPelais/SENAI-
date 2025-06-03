@@ -12,6 +12,7 @@ EMAIL_REMETENTE = os.getenv("EMAIL_REMETENTE")
 EMAIL_SENHA = os.getenv("EMAIL_SENHA")
 
 app = Flask(__name__)
+alo = 0
 
 app.config['SECRET_KEY'] = 'Senai@791'
  
