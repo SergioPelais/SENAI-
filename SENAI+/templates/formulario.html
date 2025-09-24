@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/formulario.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="h1-header">SENAI</h1>
+    </div>
+
+    <div class="container">
+        <div class="radio-input">
+            <label class="label" onclick="opcao('Saída')">
+                <input type="radio" id="value-1" checked="" name="value-radio" value="value-1" />
+                <p class="text">Saída</p>
+            </label>
+            <label class="label" onclick="opcao('Entrada')">
+                <input type="radio" id="value-2" name="value-radio" value="value-2" />
+                <p class="text">Entrada</p>
+            </label>
+        </div>
+        <div>
+            <form action="/enviar" method="POST">
+                <label for="nome">Nome do aluno:</label><br>
+                <input type="text" id="nome" name="nome" placeholder="Nome do aluno"><br><br>
+
+                <label for="telefone">Telefone do responsavel:</label><br>
+                <input type="tel" id="telefone" name="telefone" placeholder="Telefone do responsavel"><br><br>
+
+                <label for="email_destinatario">Email do responsavel:</label><br>
+                <input type="email" id="email_destinatario" placeholder="Email do Responsavel"
+                    name="email_destinatario"><br><br>
+
+                <label for="curso">Curso:</label><br>
+                <input type="text" id="curso" name="curso" placeholder="Curso"><br><br>
+
+                
+                <input type="hidden" id="opcao" name="opcao">
+
+                <label for="data">Data:</label><br>
+                <input type="date" id="data" name="data" placeholder="Data"><br><br>
+
+                <label for="horario">Horario:</label><br>
+                <input type="text" id="horario" name="horario" placeholder="Horario"><br><br>
+
+                <div style="text-align: right;">
+                    <button type="submit" id="btnform">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Todos os direitos reservados &COPY; </p>
+    </div>
+
+    <script src="../static/script/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+    <script>
+        const ensad = document.getElementById('opcao')
+        ensad.value = 'Saída'
+        function opcao(num = 0) {
+            ensad.value = num
+        }
+        const boxCaso = document.querySelectorAll('.boxCaso');
+        boxCaso.forEach(n =>
+            n.addEventListener('click', function () {
+                const caso = document.getElementById("caso")
+                caso.style.transform = "translateX(100%)"
+            })
+        )
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Goblin+One&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fffdff;
+}
+
+header {
+    padding: 10px;
+    background: linear-gradient(to right, #FF0000, #E0077B, #CE71E0);
+    height: 50px;
+    box-shadow: 5px 0 15px gray;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+}
+
+.title h1 {
+    font-family: "Goblin One", serif;
+    color: aliceblue;
+    flex: 3;
+}
+
+main{
+    margin-top: 50px;
+    flex: 3;
+    height: 100%;
+}
+
+footer {
+    text-align: center;
+    background: linear-gradient(to right, #CE71E0, #E0077B, #FF0000);
+    color: aliceblue;
+    padding: 3px;
+    width: 100%;
+}

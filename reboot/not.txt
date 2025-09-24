@@ -1,0 +1,31 @@
+função: conectBD( consulta, ação, valor convertido)
+
+ação = {
+    create-delete-update: 0,
+    read-one-data: 1,
+    read-all-data: 2
+}
+
+exemplos:
+Quando a ação é 0.
+
+conectBD("INSERT INTO teste (dado) VALUES ('baka');")
+
+OU
+
+conectBD("INSERT INTO teste (dado) VALUES (%s);", 0, ['baka'])
+OBS: desse formato, o dado será convertido para o formato SQL
+
+Quando a ação é 1.
+
+conectBD("SELECT * FROM teste WHERE id=2;", 1)
+OBS: ele retorna sómente o primeiro dado ou valor
+
+Quando a ação é 2.
+
+conectBD("SELECT * FROM teste;", 2)
+OBS: ele retorna uma lista de dados ou valores
+________________________________________________________________________________
+
+função: msg("mensagem")
+serve para repetir a mensagem só uma vez na pagina

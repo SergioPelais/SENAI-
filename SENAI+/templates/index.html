@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <h1 class="h1-header">SENAI</h1>
+
+    </div>
+
+    <div class="page">
+        <div class="boxImg none"></div>
+        <div class="boxImg flex">
+            <div class="boxForm">
+                <div style="text-align: center;color: #460739;margin: 20px;">
+                    <h1>Login</h1>
+                </div>
+                <div class="formulario">
+                    <form method="POST" action="/autenticar">
+                        <label for="inp"><b>NIF</b></label><br>
+                        <input type="number" id="inp" placeholder="Digite seu NIF" name="nif">
+                        <label for="inp"><b>Senha</b></label><br>
+                        <input type="password" id="inp" placeholder="Digite sua senha" name="senha">
+                        <div style="text-align: center;">
+                            <button type="submit" id="btnform">Acessar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Todos os direitos reservados &COPY; </p>
+    </div>
+
+    <script>
+        if ("{{msg}}" != "") {
+            alert('{{msg}}')
+        }
+    </script>
+</body>
+
+</html>

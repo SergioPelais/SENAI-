@@ -1,0 +1,117 @@
+main{
+    display: flex;
+    flex-direction: row;
+}
+
+.boxImg {
+    flex: 1;
+    height: 10fr;
+    background-image: url(https://static.portaldaindustria.com.br/portaldaindustria/noticias/media/imagem_plugin/cardagenciafotoindustria.jpg);
+    background-size: cover;
+}
+
+.none{
+    display: block;
+}
+.flex{
+    flex: 2;
+}
+
+.boxForm{
+    background-color: aliceblue;
+    height: 100%;
+    padding: 30px;
+    box-shadow: -5px 1px 5px rgba(70,7,57, 0.5);
+}
+
+@media only screen and (max-width:768px) {
+.boxForm{
+    min-width: 80%;
+    border-radius: 10px;
+    height: auto;
+    box-shadow: 0px 5px 5px rgba(70,7,57, 0.5);
+    padding: 15px;
+}
+.boxImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.none{
+    display: none;
+}
+}
+
+@media only screen and (min-width:768px) {
+.none{
+    display: block;
+}
+.flex{
+    flex: 1;
+}
+.boxForm{
+    padding: 20px;
+    box-shadow: -5px 1px 5px rgba(70,7,57, 0.5);
+}
+}
+
+@media only screen and (min-width:1024px) {
+.flex{
+    flex: 2;
+}
+.boxForm{
+    padding: 30px;
+}
+}
+
+.formulario {
+    height: 50%;
+    width: 90%;
+    border-radius: 20px;
+    padding: 20px;
+    margin: auto;
+    color: #460739;
+}
+
+#inp {
+    margin-top: 5px;
+    padding: 10px;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    border-bottom: 2px solid red;
+    outline: none;
+    border-radius: 5px;
+    /* box-shadow: inset 0 0 5px #f72585; */
+    margin-bottom: 30px;
+    background-color: transparent;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+    transition: 0.2s;
+}
+
+#inp:focus {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    /* font-size: 14px; */
+}
+
+#btnform {
+    font-weight: bold;
+    color: aliceblue;
+    opacity: 0.7;
+    padding: 5px 20px;
+    border-radius: 5px;
+    background-color: #e10069;
+    border-bottom: 5px solid #bda9c8;
+    border-left: 3px solid #bda9c8;
+    border-right: 1px solid #bda9c8;
+    transition: 0.2s;
+}
+
+#btnform:hover {
+    font-size: small;
+    background-color: #d54fef;
+    border-bottom: 1px solid #bda9c8;
+    border-left: 1px solid #bda9c8;
+    transform: scale(0.99);
+}
