@@ -1,4 +1,4 @@
-função: conectBD( consulta, ação, valor convertido)
+função: conectBD( consulta, ação, valor para converção)
 
 ação = {
     create-delete-update: 0,
@@ -14,7 +14,7 @@ conectBD("INSERT INTO teste (dado) VALUES ('baka');")
 OU
 
 conectBD("INSERT INTO teste (dado) VALUES (%s);", 0, ['baka'])
-OBS: desse formato, o dado será convertido para o formato SQL
+OBS: desse formato, o dado será convertido para o formato SQL antes de realizar a consulta
 
 Quando a ação é 1.
 
