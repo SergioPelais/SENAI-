@@ -77,5 +77,6 @@ async function teste() {
         document.getElementById('title-menu').style.display = 'none'
         await delay(100)
         container[0].style.transform = `translateX(0)`
+        container[1].classList.remove('anima-menu')
     }
 }
