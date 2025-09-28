@@ -297,3 +297,23 @@ textarea {
 #sair-login:hover{
     background-color: #ccc;
 }
+#resultados{
+    list-style-type: none;
+    overflow-Y: auto;
+    max-height: 50px
+}
+#resultados li{
+    transition: 0.3s;
+}
+#resultados li:hover{
+    padding-left: 20px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.info{
+    background-color: #f8f9ff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border-left: 3px solid blue;
+}

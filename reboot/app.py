@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from dotenv import load_dotenv
 import resources.database_connection as database_connection
 
+import json
+
 from email.message import EmailMessage
 import os
 import smtplib
@@ -19,8 +21,6 @@ load_dotenv()
 EMAIL_REMETENTE = os.getenv("EMAIL_REMETENTE")
 EMAIL_SENHA = os.getenv("EMAIL_SENHA")
 def callEmail(emailDestina='', remetente='', assunto='', mensagem=''):
-    if emailDestina or remetente or assunto or mensagem:
-        return
     try:    
         email = EmailMessage()
         email["Subject"] = assunto
@@ -48,28 +48,27 @@ def msg(mensagem):
     return mensagem if msgAtivo else ''
 
 
-data = [
-    {
-        'nome': 'miguel',
-        'dtNas': '2007-08-01',
-        'email': 'pai@gamil.com'
-    },
-    {
-        'nome': 'rodrigo',
-        'dtNas': '2007-08-01',
-        'email': 'pai@gamil.com'
-    },
-]
-
 @app.route('/',methods=["GET", "POST"])
 def inicio ():
-    global data
-    
     if request.method == "POST":
-        callEmail('carlos.gabriel561btu@gmail.com',"SENAI Testes","Saída e entrada")
+        estado = request.form['estado']
+        caso = request.form['caso']
+        emailResp = request.form['emailResp']
+        solicitarCod = request.form.get('receber_codigo')
 
 
-    return render_template('autorizacao.html')
+        docente = "SENAI bot."
+        msgEmail = ''
+        if estado == 'true':
+            if caso=='Saída' and solicitarCod == 'sim':
+                msgEmail = 'solicitação do aluno com código [XXXXXX]'
+            else:
+                msgEmail = 'solicitação do aluno sem código'
+            callEmail(emailResp,docente,f"Solicitação de {'Saída'if caso == 'Saída' else 'Entrada'}",msgEmail)
+
+
+    data = conectBD('SELECT * FROM alunos;',1)
+    return render_template('autorizacao.html',bd=json.dumps(data,default=str))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="busca" placeholder="Digite um nome..." />
+
+<ul id="resultados"></ul>
+
+<script>
+  const nomes = ['Ana', 'Bruno', 'Carlos', 'Daniela', 'Eduardo', 'Fernanda'];
+
+  const input = document.getElementById('busca');
+  const ul = document.getElementById('resultados');
+
+  input.addEventListener('input', function () {
+    const termo = this.value.toLowerCase();
+
+    const resultados = nomes.filter(nome =>
+      nome.toLowerCase().includes(termo)
+    );
+
+    mostrarResultados(resultados);
+  });
+
+  function mostrarResultados(lista) {
+    ul.innerHTML = '';
+
+    lista.forEach(nome => {
+      const li = document.createElement('li');
+      li.textContent = nome;
+      ul.appendChild(li);
+    });
+  }
+</script>
+
+</body>
+</html>
