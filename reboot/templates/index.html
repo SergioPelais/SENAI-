@@ -12,7 +12,8 @@
 <body>
     <header>
         <div class="title">
-            <h1>SENAI</h1>
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
+
         </div>
     </header>
     <main>
@@ -22,22 +23,37 @@
                 <div style="text-align: center;color: #460739;margin: 20px 0;">
                     <h1>Login</h1>
                 </div>
-                <form method="POST" action="">
-                    <label for="inp"><b>NIF</b></label><br>
-                    <input type="number" id="inp" placeholder="Digite seu NIF" name="nif">
-                    <label for="inp"><b>Senha</b></label><br>
-                    <input type="password" id="inp" placeholder="Digite sua senha" name="senha">
+                <form method="POST" action="/">
+                    <label><b>NIF</b></label><br>
+                    <input type="number" class="inp" placeholder="Digite seu NIF" name="nif" required>
+                    <label><b>Senha</b></label><br>
+                    <input type="password" class="inp" style="margin-bottom: 5px;" placeholder="Digite sua senha" name="senha" required>
+                    <p style="color: red;">{{alert}}</p>
                     <div style="text-align: center;">
-                        <button type="submit" style="margin-bottom: 20px;" id="btnform">Acessar</button>
+                        <button type="submit" style="margin: 20px 0;" id="btnform">Acessar</button>
                     </div>
                 </form>
             </div>
         </div>
     </main>
     <footer>
-        <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Dsenvolvido em 2025</p>
+        <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>
     </footer>
-    <script></script>
+    <script>
+        const printMsg = '{{alert}}'
+        localStorage.removeItem("nome-usuario")
+
+        const input = document.getElementById('inpteste')
+        const printteste = document.getElementById('printteste')
+        function salvar() {
+            localStorage.setItem("nome-usuario", input.value)
+            mostrar()
+        }
+        function mostrar(){
+            printteste.textContent = localStorage.getItem("nome-usuario")
+        }
+        mostrar()
+    </script>
 </body>
 
 </html>

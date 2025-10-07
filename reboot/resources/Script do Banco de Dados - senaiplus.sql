@@ -13,18 +13,20 @@ CREATE TABLE if NOT EXISTS funcionarios (
 	ativo INT(11) NOT NULL DEFAULT 1
 );
 
-DROP TABLE if EXISTS EntradaSaída;
-CREATE TABLE if NOT EXISTS EntradaSaída (
+DROP TABLE if EXISTS entrada_saida;
+CREATE TABLE if NOT EXISTS entrada_saida (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY(id),
 	caso VARCHAR(7) CHECK (caso IN ('Saída', 'Entrada')),
-	nome VARCHAR(255),
+	id_aluno VARCHAR(255),
 	atividade VARCHAR(3) CHECK (atividade IN ('CAI', 'CT', 'FIC')),
-	curso VARCHAR(255),
+	id_curso INT(11),
 	data_ocorrencia DATE,
 	horario TIME,
 	motivo TEXT,
 	obs TEXT,
+	id_docente INT(11),
+	resolvido VARCHAR(3) DEFAULT 'nao',
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	ativo INT(11) NOT NULL DEFAULT 1
 );
@@ -38,5 +40,14 @@ CREATE TABLE if NOT EXISTS alunos (
 	cpf VARCHAR(11),
 	email_resp VARCHAR(255),
 	telefone_resp INT(18),
+	ativo INT(11) NOT NULL DEFAULT 1
+);
+
+DROP TABLE if EXISTS cursos;
+CREATE TABLE if NOT EXISTS cursos (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY(id),
+	nome VARCHAR(255),
+	notification INT(11) DEFAULT 0,
 	ativo INT(11) NOT NULL DEFAULT 1
 );

@@ -12,11 +12,13 @@
 <body>
     <header>
         <div class="title" style="flex: 3;">
-            <h1>SENAI</h1>
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
         </div>
+        <p id="bem-vindo"><b>{{hello}}</b></p>
         <div>
             <button onclick="teste()" id="btn-menu"><img src="../static/img/menu.svg" width="40px" alt="Menu"></button>
         </div>
+        
     </header>
 
     <main>
@@ -37,32 +39,38 @@
             <form method="POST" action="">
                 <input type="hidden" id="id-aluno" name="id-aluno">
                 <input type="hidden" id="atividade" name="caso">
+                <input type="hidden" id="estado" value="false" name="estado">
+
+
                 <label><b>Aluno</b></label><br>
-                <input class="inp" style="margin-bottom: 10px;" placeholder="Digite aqui o nome do aluno...">
+                <input class="inp" style="margin-bottom: 10px;" placeholder="Digite aqui o nome do aluno..." required>
 
                 <ul id="resultados"></ul><br>
 
                 <label for="action"><b>Atividade:</b></label>
-                <select class="inp-select" id="action">
+                <select class="inp-select" id="action" name="atividade">
                     <option value="CAI">CAI - Curso de Aprendizagem Industrial</option>
                     <option value="CT">CT - Checkpoint ou Checkpoint Trabalho</option>
                     <option value="FIC">FIC - Formação Inicial e Continuada</option>
                 </select>
 
+                <label for="action2"><b>Curso:</b></label>
+                <select class="inp-select" id="action2" name="curso">
+                    {% for item in listaCursos %}
+                    <option value="{{item[0]}}">{{item[1]}}</option>
+                    {% endfor %}
+                </select>
 
-                <label><b>Curso</b></label><br>
-                <input class="inp" placeholder="Digite aqui o curso do aluno...">
                 <label><b>Data</b></label><br>
-                <input class="inp" id="data" value="2025-01-01" type="date">
+                <input class="inp" id="data" value="2025-01-01" type="date" name="data" required>
                 <label><b>Horário</b></label><br>
-                <input class="inp" id="tempo" value="00:00" type="time">
+                <input class="inp" id="tempo" value="00:00" type="time" name="horario" required>
                 <label><b>Motivo</b></label>
                 <div class="tags"></div><br>
-                <input class="inp" style="display: none;" placeholder="...">
+                <input class="inp" style="display: none;" placeholder="..." name="motivo">
 
                 <div class="box-email" style="display: none;">
-                    <input type="hidden" id="estado" value="false" name="estado">
-        
+
                     <div class="info">
                         <h3>O aluno selecionado ainda é de menor.</h3>
                         <p id="msg-caso"></p>
@@ -75,14 +83,16 @@
                     </div>
 
                     <br><label><b>Email do responsável</b></label>
-                    <input class="inp" placeholder="..." name="emailResp">
+                    <input type="hidden" class="inp" placeholder="..." name="emailResp">
+                    <p id="email-print"></p><br>
                     <label><b>Telefone do responsável</b></label>
-                    <input class="inp" placeholder="...">
+                    <input type="hidden" class="inp" placeholder="...">
+                    <p id="tell-print"></p><br>
                 </div>
 
                 <div class="input-group">
                     <label for="inputText"><b>Observação:</b></label>
-                    <textarea id="inputText" placeholder="..."></textarea>
+                    <textarea id="inputText" placeholder="..." name="obs"></textarea>
                 </div>
 
                 <div style="text-align: center;">
@@ -90,30 +100,57 @@
                 </div>
             </form>
         </div>
-        <div id="title-menu" style="display: none; opacity: 0;transition: 0.5s;">
-            <h1>Bem vindo ao Menu!</h1>
-            <p>Aqui é apresentado a sua conta, e os acessos que possuí.</p>
-        </div>
 
         <div class="container menu">
+            <div class="title-grid it1">
+                <h2>Status</h2>
+            </div>
             <div class="item-menu it1" style="display: flex;flex-direction: column;">
                 <div style="flex: 3;">
+
                     <h3>Usuário: 'rodrigo pinto dos santos'</h3>
                     <p>Cargo: predeiro</p>
+                    <label for="senha">Senha:</label>
+                    <div class="password-container">
+                        <input type="password" id="senha" name="senha">
+                        <span class="icone" id="icone" onclick="toggleSenha()"><img
+                                src="https://img.icons8.com/?size=100&id=121539&format=png&color=000000" width="20px"
+                                alt=""></span>
+                    </div>
                 </div>
-                <button id="sair-login">Sair</button>
+                <a href="/sair" id="sair-login">Sair</a>
+
             </div>
-            <div class="item-menu"></div>
-            <div class="item-menu"></div>
-            <div class="item-menu"></div>
-            <div class="item-menu"></div>
+            <div class="title-grid it1">
+                <h2>Acessos</h2>
+            </div>
+            <a href="/cursos" class="item-menu item">CURSOS/AUTORIZADOS</a>
+            <a href="/alunos" class="item-menu item">ALUNOS</a>
+            <div class="item-menu item"></div>
+            <div class="item-menu item"></div>
         </div>
     </main>
     <footer>
-        <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Dsenvolvido em 2025</p>
+        <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>
     </footer>
     <script>
         const bd = JSON.parse('{{ bd | safe }}');
+        
+        function toggleSenha() {
+            const senhaInput = document.getElementById("senha");
+            const icone = document.getElementById("icone");
+
+            if (senhaInput.type === "password") {
+                senhaInput.type = "text";
+                icone.src = 'https://img.icons8.com/?size=100&id=121540&format=png&color=000000';
+                icone.alt = "Esconder senha";
+            } else {
+                senhaInput.type = "password";
+                icone.src = 'https://img.icons8.com/?size=100&id=121539&format=png&color=000000';
+                icone.alt = "Mostrar senha";
+            }
+        }
+
     </script>
     <script src="../static/script/auth.js"></script>
 </body>

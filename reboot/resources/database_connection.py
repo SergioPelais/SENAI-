@@ -12,20 +12,28 @@ def open_connection():
 
 
 # Função para comunicação com o banco de dados MySQL.
-def consultaBD(SQL,opcao=0,valor=''):
-    consulta = ''
+def consultaBD(SQL, opcao=0, valor=None):
+    resultado = None
     connection = open_connection()
-    cursor = connection.cursor(buffered=True)
-    if valor == '':
-        cursor.execute(SQL)
-    else:
-        cursor.execute(SQL,valor)
+    cursor = connection.cursor()
 
-    match opcao:
-        case 0: connection.commit()
-        case 1: consulta = cursor.fetchall()
-        case 2: consulta = cursor.fetchone()
-        
-    cursor.close()
-    connection.close()
-    return consulta
+    try:
+        if valor:
+            cursor.execute(SQL, valor)
+        else:
+            cursor.execute(SQL)
+
+        match opcao:
+            case 0:
+                connection.commit()
+            case 1:
+                resultado = cursor.fetchone()
+            case 2:
+                resultado = cursor.fetchall()
+                
+
+    finally:
+        cursor.close()
+        connection.close()
+
+    return resultado

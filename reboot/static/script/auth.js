@@ -20,15 +20,14 @@ itemTag.forEach(e => e.addEventListener('click', () => {
     e.style.backgroundColor = '#a1a1e0ff'
     e.style.color = '#fff'
 
-    if (e.value === 'Outros') {
-        input[4].style.display = 'block'
-        input[4].value = ''
+    if (e.value == tags[3]) {
+        input[3].style.display = 'block'
+        input[3].value = ''
     } else {
-        input[4].style.display = 'none'
-        input[4].value = e.value
+        input[3].style.display = 'none'
+        input[3].value = e.value
     }
 }))
-
 const boxEmail = document.getElementsByClassName('box-email')[0]
 // aplicando data e hora atual no formulário
 const inpData = document.getElementById('data')
@@ -63,15 +62,12 @@ async function teste() {
         container[1].style.opacity = 1
         await delay(300)
         container[1].classList.add('anima-menu')
-        document.getElementById('title-menu').style.display = 'block'
-        document.getElementById('title-menu').style.opacity = 1
     } else {
         container[1].style.transform = `translateY(-104%)`
         container[1].style.opacity = 0
-        await delay(1000)
+        await delay(500)
         container[0].style.display = 'block'
         container[1].style.display = 'none'
-        document.getElementById('title-menu').style.display = 'none'
         await delay(100)
         container[0].style.transform = `translateX(0)`
         container[1].classList.remove('anima-menu')
@@ -119,8 +115,6 @@ input[0].addEventListener('blur', async function () {
             ul.innerHTML = 'Aluno encontrado com sucesso!';
             ul.style.color = 'green'
             input[0].value = resultadoAluno[1]
-            input[5].value = resultadoAluno[4]
-            input[6].value = resultadoAluno[5]
             idAluno.value = resultadoAluno[0]
             notificar()
             return
@@ -129,26 +123,33 @@ input[0].addEventListener('blur', async function () {
             ul.innerHTML = 'Aluno não encontrado...';
             ul.style.color = 'red'
         }
-
-    }
+    } else { ul.innerHTML = ''; }
     idAluno.value = 'none'
     boxEmail.style.display = 'none'
     input[6].value = ''
     input[5].value = ''
-    ul.innerHTML = '';
+
 })
 
-//tratamento de notificação ao responsavel
+//tratamento de notificação ao responsavel, ou, verificando se o aluno é de maior
 const msgCaso = document.getElementById('msg-caso')
 function notificar() {
     const [ano, mes, dia] = resultadoAluno[2].split("-");
-    if (dataAtual.getFullYear() - ano >= 18) {
-        if (dataAtual.getDate() >= dia && dataAtual.getMonth() + 1 >= mes) {
-            estado.value = false
-            boxEmail.style.display = 'none'
-            return
+    let idade = 0
+
+    if (dataAtual.getMonth() + 1 >= mes) {
+        if (dataAtual.getDate() >= dia || dataAtual.getMonth() + 1 > mes) {
+            idade = dataAtual.getFullYear()-ano
         }
+    }else{idade = (dataAtual.getFullYear()-ano)-1}
+    
+    if (idade >=18) {
+        estado.value = false
+        boxEmail.style.display = 'none'
+        return
     }
+    document.getElementById('email-print').textContent = resultadoAluno[4]
+    document.getElementById('tell-print').textContent = resultadoAluno[5]
     estado.value = true
     boxEmail.style.display = 'block'
     msgNotificar()

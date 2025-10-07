@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/gerenciarCurso.css">
+</head>
+
+<body>
+    <header>
+        <div class="title">
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
+        </div>
+        <div>
+            <a href="/auth" id="btn-menu"><img src="../static/img/home.svg" width="40px" alt="voltar"></a>
+        </div>
+    </header>
+    <main>
+
+        <form class="box-addCurso" action="cursos" method="post">
+            <div>
+                <button type="submit" class="add-btn">+</button>
+            </div>
+            <div style="flex: 3;padding: 0 15px;">
+                <input class="inp" type="text" name="nome" placeholder="Digite aqui o nome do novo curso.">
+            </div>
+        </form>
+        <br>
+        <h1>Lista dos cursos</h1><br>
+        <ul id="favoritos"></ul>
+        <ul>
+            {% for item in lista %}
+            <li id="{{item[0]}}">
+                <a href="/registros/{{item[0]}}">
+                    <div style="flex: 3;">{{ item[1] }}</div>
+                    <div class="notification none">
+                        {% if item[2] > 0 %}
+                        <img src="../static/img/notifications.svg" width="40px" alt="notification">
+                        <p>{{item[2]}}</p>
+                        {% endif %}
+                    </div>
+                </a>
+                <button id="keep" onclick="addmarker('{{item[0]}}')">
+                    <img src="../static/img/keep.svg" width="40px" alt="notification">
+                </button>
+            </li>
+            {% endfor %}
+        </ul>
+    </main>
+    <footer>
+        <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>
+    </footer>
+    <script>
+        const data = JSON.parse('{{ lista2 | safe }}')
+    </script>
+    <script src="../static/script/cursos.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload de Imagem com Preview</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .preview-container {
+      margin-top: 20px;
+    }
+
+    img#imagePreview {
+      max-width: 300px;
+      max-height: 300px;
+      display: none;
+      border: 1px solid #ccc;
+      padding: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Selecione uma imagem</h2>
+  <form action="/" method="post" enctype="multipart/form-data">
+    <input type="file" id="imageInput" name="img" accept="image/*">
+    <button type="submit">salvar</button>
+  </form>
+
+  <div class="preview-container">
+    <h2>preview-container do input</h2>
+    <img id="imagePreview" src="#" alt="Preview da Imagem">
+  </div>
+  <hr>
+  <div class="preview-container">
+    <h2>preview-container salvo no banco</h2>
+    <img src="/imagem/1" alt="Imagem do banco" style="max-width: 300px;">
+    <img src="/imagem/2" alt="Imagem do banco" style="max-width: 300px;">
+  </div>
+
+  <script>
+    const input = document.getElementById('imageInput');
+    const preview = document.getElementById('imagePreview');
+
+    input.addEventListener('change', function () {
+      const file = this.files[0];
+      console.log(file)
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.addEventListener('load', function () {
+          preview.setAttribute('src', this.result);
+          preview.style.display = 'block';
+        });
+
+        reader.readAsDataURL(file);
+      } else {
+        preview.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

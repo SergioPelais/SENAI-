@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registro.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="title">
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
+        </div>
+        <a class="nav" href="/cursos" id="btn-menu"><img src="{{ url_for('static', filename='img/voltar.svg') }}"
+                width="40px" alt="voltar"></a>
+    </header>
+    <div class="modal-box">
+        <div class="modal">
+            <div style="text-align: end;">
+            <img src="{{ url_for('static', filename='img/cancel.svg') }}" id="sair-modal" onclick="fecharModal()" width="30px" alt="x">
+            </div>
+            <h1>Autorização de *****</h1>
+        </div>
+    </div>
+    <main>
+        <br>
+        <div class="config">
+            <img src="{{ url_for('static', filename='img/settings.svg') }}" id="open-config" width="30px" alt="">
+            <div class="box-config">
+                <img onclick="editar()" src="{{ url_for('static', filename='img/edit.svg') }}" width="30px" alt=""
+                    id="edit">
+                <button onclick="perguntar()"><img src="{{ url_for('static', filename='img/delete.svg') }}" width="30px"
+                        alt=""></button>
+
+            </div>
+            <h2 class="none">{{lista[1]}}</h2>
+            <div class="box-edit">
+                <form action="/registros/{{lista[0]}}" method="post" style="display: flex;">
+                    <input type="text" class="inp" placeholder="" name="nome">
+                    <button type="submit" id="save">+</button>
+                </form>
+                <button onclick="cancel()" id="cancel">Cancelar</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="item" onclick="abrirModal()">
+                <h2 style="text-align: center;">Entrada</h2>
+                <h3>Carlos gabriel dos santos araujo</h3>
+                <p>Horário: 09:27</p>
+                <p>Data: 05-01-2007</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>
+    </footer>
+    <script>
+        const data = JSON.parse('{{ curso | safe }}')
+        const data_auth = JSON.parse('{{ auth_alunos | safe }}')
+    </script>
+    <script src="{{ url_for('static', filename='script/registro.js') }}"></script>
+</body>
+
+</html>

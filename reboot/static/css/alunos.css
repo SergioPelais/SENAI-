@@ -5,21 +5,11 @@ main {
     justify-content: center;
     padding: 20px;
 }
-#bem-vindo{
-    animation: ola 2s forwards 2s;
-}
-@keyframes ola {
-    100%{
-        transform: translateX(50px);
-        opacity: 0;
-        display: none;
-    }
-}
 
 .container {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     width: 100%;
-    max-width: 99%;
+    max-width: 80%;
     padding: 20px;
     border-radius: 10px;
     transition: 1s;
@@ -101,23 +91,7 @@ textarea {
     border-radius: 10px;
 }
 
-.tags {
-    display: grid;
-    grid-template-rows: auto;
-    margin: 5px;
-}
 
-.itemTag {
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 5px;
-    background-color: #d7d7e0;
-    transition: 0.1s;
-}
-
-.itemTag:hover {
-    background-color: #adadbe;
-}
 
 /*radio*/
 
@@ -239,14 +213,11 @@ textarea {
 
 @keyframes abrir {
     100% {
-        height: 500px;
+        height: 450px;
     }
 }
-.title-grid{
-    text-align: center;
-}
 
-.item-menu {
+.title-grid .item-menu {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     padding: 10px;
@@ -256,18 +227,18 @@ textarea {
     align-items: center;
     text-decoration: none;
     padding: 20px;
-    
+    transition: 0.2s;
 }
-.item{
+
+.item {
     font-size: 1rem;
     font-weight: bold;
-    transition: 0.2s;  
 }
-.item:hover{
+
+.item:hover {
     border-top: 1px solid blue;
     border-bottom: 1px solid blue;
     background-color: #eee;
-    padding-left: 10%;
 }
 
 .item-menu h1 {
@@ -341,9 +312,14 @@ textarea {
         gap: 10px;
         grid-template-columns: repeat(2, 1fr);
     }
+
     .menu {
         grid-template-columns: repeat(1, 1fr);
         gap: 10px;
+    }
+
+    .it1 {
+        grid-row: 1 / 3;
     }
 }
 
@@ -352,6 +328,7 @@ textarea {
         gap: 30px;
         grid-template-columns: repeat(3, 1fr);
     }
+
     .menu {
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
@@ -367,6 +344,7 @@ textarea {
         gap: 40px;
         grid-template-columns: repeat(4, 1fr);
     }
+
     .menu {
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
@@ -375,4 +353,17 @@ textarea {
     .it1 {
         grid-column: 1 / 4;
     }
+}
+
+.preview-container {
+    margin-top: 20px;
+}
+
+img#imagePreview {
+    max-width: 300px;
+    max-height: 300px;
+    display: none;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-top: 10px;
 }

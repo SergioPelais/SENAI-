@@ -1,35 +1,24 @@
 função: conectBD( consulta, ação, valor para converção)
 
 ação = {
-    create-delete-update: 0,
-    read-one-data: 1,
-    read-all-data: 2
+    create-delete-update: 0, # apenas se for interar com banco
+    read-all-data: 1, # apenas se puxar um dado expecifico
+    read-one-data: 2, # apenas se puxar mais de um dado expecifico
 }
 
 exemplos:
-Quando a ação é 0.
-
-conectBD("INSERT INTO teste (dado) VALUES ('baka');")
-
-OU
-
-conectBD("INSERT INTO teste (dado) VALUES (%s);", 0, ['baka'])
-OBS: desse formato, o dado será convertido para o formato SQL antes de realizar a consulta
-
-Quando a ação é 1.
-
-conectBD("SELECT * FROM teste WHERE id=2;", 1)
-OBS: ele retorna sómente o primeiro dado ou valor
-
-Quando a ação é 2.
-
-conectBD("SELECT * FROM teste;", 2)
-OBS: ele retorna uma lista de dados ou valores
+conectBD('INSERT INTO nome-da-tabela (coluna1, coluna2, ...) VALUES (%s, %s, ...)', 0, (valor1, valor2, ...))
+conectBD('SELECT * FROM nome-da-tabela  WHERE id = 1', 1)
+conectBD('SELECT * FROM nome-da-tabela', 2)
 ________________________________________________________________________________
 
-função: msg("mensagem")
-serve para repetir a mensagem só uma vez na pagina
+função: msg()
+serve para controlar a repetição da mensagem
 
+mensagem[0] = 'recebe a mensagem'
+
+msg() #garante que a mensagem vai ser exibida só uma vez
+msg(3) #garante que a mensagem vai ser exibida *3
 ________________________________________________________________________________
 
 📤 Mensagem para saída antecipada (fora do horário padrão)
