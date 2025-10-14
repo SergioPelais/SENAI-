@@ -10,7 +10,7 @@ def open_connection():
         database='SENAIplus',
     )
 
-
+#cursor.lastrowid
 # Função para comunicação com o banco de dados MySQL.
 def consultaBD(SQL, opcao=0, valor=None):
     resultado = None
@@ -30,7 +30,9 @@ def consultaBD(SQL, opcao=0, valor=None):
                 resultado = cursor.fetchone()
             case 2:
                 resultado = cursor.fetchall()
-                
+            case 3:
+                connection.commit()
+                resultado = cursor.lastrowid  
 
     finally:
         cursor.close()

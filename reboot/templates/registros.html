@@ -12,22 +12,38 @@
 <body>
     <header>
         <div class="title">
-            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px">
         </div>
         <a class="nav" href="/cursos" id="btn-menu"><img src="{{ url_for('static', filename='img/voltar.svg') }}"
                 width="40px" alt="voltar"></a>
     </header>
     <div class="modal-box">
         <div class="modal">
-            <div style="text-align: end;">
-            <img src="{{ url_for('static', filename='img/cancel.svg') }}" id="sair-modal" onclick="fecharModal()" width="30px" alt="x">
+            <div class="box-head">
+                <div style="text-align: center;flex: 3;text-align: center;color:#460739">
+                    <h1 style="margin: 5px 0;"><span id="caso"></span></h1>
+                </div>
+                <div id="sair-modal">
+                <img src="{{ url_for('static', filename='img/cancel.svg') }}" onclick="fecharModal()"
+                    width="35px" alt="x">
+                </div>
             </div>
-            <h1>Autorização de *****</h1>
+            <div class="box-main">
+                <div class="info-modal"></div>
+                <div class="img-modal">
+                    <img src="../static/img/user.svg" alt="">
+                    <img style="position: absolute;" id="imagePreview" src="../static/img/user.svg" alt="">
+                </div>
+            </div>
+            {% if user[4] > 1 %}
+            <div class="visto"></div>
+            {% endif %}
         </div>
     </div>
     <main>
         <br>
         <div class="config">
+            {% if user[4] > 1 %}
             <img src="{{ url_for('static', filename='img/settings.svg') }}" id="open-config" width="30px" alt="">
             <div class="box-config">
                 <img onclick="editar()" src="{{ url_for('static', filename='img/edit.svg') }}" width="30px" alt=""
@@ -36,7 +52,8 @@
                         alt=""></button>
 
             </div>
-            <h2 class="none">{{lista[1]}}</h2>
+            {% endif %}
+            <h2 class="none" style="margin-left: 10px;">{{lista[1]}}</h2>
             <div class="box-edit">
                 <form action="/registros/{{lista[0]}}" method="post" style="display: flex;">
                     <input type="text" class="inp" placeholder="" name="nome">
@@ -45,15 +62,9 @@
                 <button onclick="cancel()" id="cancel">Cancelar</button>
             </div>
         </div>
+        
 
-        <div class="container">
-            <div class="item" onclick="abrirModal()">
-                <h2 style="text-align: center;">Entrada</h2>
-                <h3>Carlos gabriel dos santos araujo</h3>
-                <p>Horário: 09:27</p>
-                <p>Data: 05-01-2007</p>
-            </div>
-        </div>
+        <div class="container"></div>
     </main>
     <footer>
         <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>
@@ -61,6 +72,7 @@
     <script>
         const data = JSON.parse('{{ curso | safe }}')
         const data_auth = JSON.parse('{{ auth_alunos | safe }}')
+        const data_status = JSON.parse('{{ data_status | safe }}')
     </script>
     <script src="{{ url_for('static', filename='script/registro.js') }}"></script>
 </body>

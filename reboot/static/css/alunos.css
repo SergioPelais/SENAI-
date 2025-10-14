@@ -1,22 +1,20 @@
 main {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    padding: 15px;
 }
 
 .container {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    max-width: 80%;
-    padding: 20px;
-    border-radius: 10px;
-    transition: 1s;
+    flex: 1;
 }
 
 .formulario {
+    margin-top: 5px;
     color: #460739;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    max-width: 80%;
+    padding: 20px;
+    height: 695px;
+    border-radius: 10px;
 }
 
 .inp {
@@ -73,9 +71,6 @@ main {
     transform: scale(0.99);
 }
 
-.input-group {
-    margin-bottom: 25px;
-}
 
 textarea,
 input,
@@ -83,287 +78,185 @@ select {
     border: 2px solid #ddd;
 }
 
-textarea {
-    width: 100%;
-    padding: 10px;
-    min-height: 120px;
-    resize: vertical;
-    border-radius: 10px;
-}
 
-
-
-/*radio*/
-
-.radio-input {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin: 10px;
-}
-
-.radio-input * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-.radio-input label {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 0px 20px;
-    width: 45%;
-    cursor: pointer;
-    height: 50px;
-    position: relative;
-}
-
-.radio-input label::before {
-    position: absolute;
-    content: "";
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 45px;
-    z-index: -1;
-    transition: all 0.1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    border-radius: 10px;
-    border: 2px solid transparent;
-}
-
-.radio-input label:hover::before {
-    transition: all 0.2s ease;
-    background-color: #cfd3e8;
-}
-
-.radio-input .label:has(input:checked)::before {
-    border-color: #9a50da;
-    height: 50px;
-}
-
-.radio-input .label .text {
-    color: #000;
-}
-
-.radio-input .label input[type="radio"] {
-    background-color: #646482;
-    appearance: none;
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.radio-input .label input[type="radio"]:checked {
-    background-color: #435dd8;
-    -webkit-animation: puls 0.7s forwards;
-    animation: pulse 0.7s forwards;
-}
-
-.radio-input .label input[type="radio"]:before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
-    background-color: #fff;
-    transform: scale(0);
-}
-
-.radio-input .label input[type="radio"]:checked::before {
-    transform: scale(1);
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-    }
-
-    70% {
-        box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-    }
-}
-
-#btn-menu {
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.menu {
+#imageInput {
     display: none;
-    opacity: 0;
-    transform: translateY(-104%);
-    box-shadow: none;
-    grid-template-rows: auto;
-    height: 20px;
+}
+
+.botao-upload {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #eee;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
 }
 
-.anima-menu {
-    animation: abrir 0.7s forwards;
+img#imagePreview {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
-@keyframes abrir {
-    100% {
-        height: 450px;
-    }
+.tela {
+    width: 150px;
+    height: 150px;
+    background-color: #333;
+    position: absolute;
+    border-radius: 50%;
+    transition: 0.3s;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.title-grid .item-menu {
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+.tela:hover {
+    opacity: 0.5;
+}
+
+.inp-busca{
+    margin-top: 5px;
     padding: 10px;
-    background-color: #fff;
-    border-radius: 15px;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    outline: none;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    background-color: transparent;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+    transition: 0.2s;
+
+}
+
+.box-busca{
+    display: flex;
+    height: 50px;
+    border-bottom: 1px solid #555;
+    margin-bottom: 15px;
+}
+
+ul {
+    list-style: none;
+    background-color: #ddd;
+    max-height: 630px;
+    overflow-y: auto;
+}
+
+ul a {
+    text-decoration: none;
+}
+
+ul li {
+    display: flex;
+    height: 40px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #ecd;
+}
+
+ul a {
+    flex: 3;
     display: flex;
     align-items: center;
-    text-decoration: none;
-    padding: 20px;
+    padding: 0 20px;
+    background-color: aliceblue;
+    transition: 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+ul a:hover {
+    font-weight: bold;
+    background-color: #ccc;
+    color: #333;
+    padding: 0 30px;
+    font-size: 1.1em;
+}
+
+ul a:hover .notification {
+    display: none;
+}
+
+#keep {
+    display: none;
     transition: 0.2s;
 }
 
-.item {
-    font-size: 1rem;
-    font-weight: bold;
+ul li:hover #keep {
+    display: block;
 }
 
-.item:hover {
-    border-top: 1px solid blue;
-    border-bottom: 1px solid blue;
+#keep:hover {
+    background-color: rgb(255, 179, 179);
+}
+
+.notification {
+    display: flex;
+}
+
+.notification img {
+    border-radius: 50%;
+}
+
+.notification p {
+    color: rgb(104, 104, 17);
+    margin-left: 3px;
+}
+
+#btn-cancel{
+    padding: 5px;
     background-color: #eee;
-}
-
-.item-menu h1 {
-    font-size: 1.8em;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-
-.item-menu h3 {
-    font-size: 1.2em;
-    color: #555;
-    margin-bottom: 5px;
-}
-
-.item-menu p {
-    font-size: 1em;
-    color: #777;
-    margin-bottom: 20px;
-}
-
-.item-menu #sair-login {
-    padding: 10px 20px;
-    background-color: #ff4b5c;
-    color: white;
-    font-size: 1.1em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    align-self: center;
-    justify-self: center;
-    width: 20%;
+    border-radius: 10px;
     text-decoration: none;
-}
-
-.item-menu #sair-login:hover {
-    background-color: #ca676f;
-}
-
-#resultados {
-    list-style-type: none;
-    overflow-Y: auto;
-    max-height: 50px
-}
-
-#resultados li {
+    font-weight: bold;
+    cursor: pointer;
+    color: red;
     transition: 0.3s;
 }
-
-#resultados li:hover {
-    padding-left: 20px;
+#btn-cancel:hover{
     background-color: #ccc;
-    cursor: pointer;
-}
-
-.info {
-    background-color: #f8f9ff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border-left: 3px solid blue;
-}
-
-.icone {
-    cursor: pointer;
-    font-size: 5px;
 }
 
 @media only screen and (max-width:768px) {
-    .tags {
-        gap: 10px;
-        grid-template-columns: repeat(2, 1fr);
+    main {
+        flex-direction: column;
+    }
+    .space{
+        margin-top: 20px;
     }
 
-    .menu {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 10px;
+    .formulario {
+        max-width: 99%;
     }
 
-    .it1 {
-        grid-row: 1 / 3;
+    #keep {
+        display: block;
     }
 }
 
 @media only screen and (min-width:768px) {
-    .tags {
-        gap: 30px;
-        grid-template-columns: repeat(3, 1fr);
+    .formulario {
+        max-width: 90%;
     }
 
-    .menu {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-    }
-
-    .it1 {
-        grid-column: 1 / 3;
+    #keep {
+        display: block;
     }
 }
 
 @media only screen and (min-width:1024px) {
-    .tags {
-        gap: 40px;
-        grid-template-columns: repeat(4, 1fr);
+    main {
+        flex-direction: row;
     }
 
-    .menu {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+    .formulario {
+        max-width: 80%;
     }
 
-    .it1 {
-        grid-column: 1 / 4;
+    #keep {
+        display: none;
     }
-}
-
-.preview-container {
-    margin-top: 20px;
-}
-
-img#imagePreview {
-    max-width: 300px;
-    max-height: 300px;
-    display: none;
-    border: 1px solid #ccc;
-    padding: 5px;
-    margin-top: 10px;
 }

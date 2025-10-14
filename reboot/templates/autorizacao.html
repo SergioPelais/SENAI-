@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autorização-entrada-saída</title>
+    <title>Autorização entrada/saída</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <link rel="stylesheet" type="text/css" href="../static/css/auth.css">
 </head>
@@ -12,13 +12,13 @@
 <body>
     <header>
         <div class="title" style="flex: 3;">
-            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px">
         </div>
         <p id="bem-vindo"><b>{{hello}}</b></p>
         <div>
             <button onclick="teste()" id="btn-menu"><img src="../static/img/menu.svg" width="40px" alt="Menu"></button>
         </div>
-        
+
     </header>
 
     <main>
@@ -36,7 +36,7 @@
                     <p class="text">Entrada</p>
                 </label>
             </div>
-            <form method="POST" action="">
+            <form method="POST" action="/auth" class="formulario">
                 <input type="hidden" id="id-aluno" name="id-aluno">
                 <input type="hidden" id="atividade" name="caso">
                 <input type="hidden" id="estado" value="false" name="estado">
@@ -101,33 +101,51 @@
             </form>
         </div>
 
-        <div class="container menu">
-            <div class="title-grid it1">
-                <h2>Status</h2>
-            </div>
-            <div class="item-menu it1" style="display: flex;flex-direction: column;">
-                <div style="flex: 3;">
+        <div class="container menu" style="display: none;">
+            <div class="menu-perfil">
+                <div style="text-align: center;">
+                    <h2>Perfil</h2>
+                </div>
+                <div class="perfil">
 
-                    <h3>Usuário: 'rodrigo pinto dos santos'</h3>
-                    <p>Cargo: predeiro</p>
-                    <label for="senha">Senha:</label>
+                    <h2>{{user[3]}}</h2>
+                    <p>
+                        {% if user[4] == 1 %}
+                        Professor
+                        {% elif user[4] == 2 %}
+                        Cordenador
+                        {% endif %}
+                    </p>
+                    <h3>NIF: {{user[1]}}</h3>
+
                     <div class="password-container">
+                        <label for="senha">Senha:</label>
                         <input type="password" id="senha" name="senha">
                         <span class="icone" id="icone" onclick="toggleSenha()"><img
                                 src="https://img.icons8.com/?size=100&id=121539&format=png&color=000000" width="20px"
                                 alt=""></span>
                     </div>
+                    <br>
+                    <div style="text-align: center;">
+                        <a href="/">
+                            <button id="sair-login">SAIR</button>
+                        </a>
+                    </div>
                 </div>
-                <a href="/sair" id="sair-login">Sair</a>
+            </div>
 
+            <div class="menu-acesso">
+                <div style="text-align: center; margin-top: 20px;">
+                    <h2>Acessos</h2>
+                </div>
+                <ul class="opcao-menu">
+                    <li><a href="/cursos"><button class="btn">CURSOS / AUTORIZAÇÕES</button></a></li>
+                    {% if user[4] > 1 %}
+                    <li><a href="/alunos"><button class="btn">ALUNOS</button></a></li>
+                    <li><a href="/alunos"><button class="btn">PENDENTES</button></a></li>
+                    {% endif %}
+                </ul>
             </div>
-            <div class="title-grid it1">
-                <h2>Acessos</h2>
-            </div>
-            <a href="/cursos" class="item-menu item">CURSOS/AUTORIZADOS</a>
-            <a href="/alunos" class="item-menu item">ALUNOS</a>
-            <div class="item-menu item"></div>
-            <div class="item-menu item"></div>
         </div>
     </main>
     <footer>
@@ -135,7 +153,7 @@
     </footer>
     <script>
         const bd = JSON.parse('{{ bd | safe }}');
-        
+
         function toggleSenha() {
             const senhaInput = document.getElementById("senha");
             const icone = document.getElementById("icone");
@@ -150,7 +168,6 @@
                 icone.alt = "Mostrar senha";
             }
         }
-
     </script>
     <script src="../static/script/auth.js"></script>
 </body>

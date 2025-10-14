@@ -41,18 +41,6 @@
     </footer>
     <script>
         const printMsg = '{{alert}}'
-        localStorage.removeItem("nome-usuario")
-
-        const input = document.getElementById('inpteste')
-        const printteste = document.getElementById('printteste')
-        function salvar() {
-            localStorage.setItem("nome-usuario", input.value)
-            mostrar()
-        }
-        function mostrar(){
-            printteste.textContent = localStorage.getItem("nome-usuario")
-        }
-        mostrar()
     </script>
 </body>
 

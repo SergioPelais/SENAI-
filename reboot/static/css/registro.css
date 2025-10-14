@@ -1,49 +1,63 @@
-.config{
+.config {
     display: flex;
 }
-form{width: 100%;}
-.box-config{
+
+form {
+    width: 100%;
+}
+
+.box-config {
     display: none;
     padding: 0 10px;
     border-left: 2px solid blue;
     border-right: 2px solid blue;
 }
-.box-config:hover{
+
+.box-config:hover {
     display: block;
 }
-#open-config{
+
+#open-config {
     cursor: pointer;
 }
-#open-config:hover{
-animation: girar 1.5s linear 0s;
+
+#open-config:hover {
+    animation: girar 1.5s linear 0s;
 }
-#open-config:hover ~ .box-config{
+
+#open-config:hover~.box-config {
     display: block;
 }
-.box-config img{
+
+.box-config img {
     transition: 0.3s;
 }
-.box-config img:hover{
-background-color: #ccc;
-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+
+.box-config img:hover {
+    background-color: #ccc;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes girar {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
-.none{
+
+.none {
     display: block;
 }
-.box-edit{
+
+.box-edit {
     display: none;
     width: 90%;
 }
-.box-edit #cancel{
+
+.box-edit #cancel {
     padding: 0 10px;
     color: red;
     font-weight: bold;
@@ -51,21 +65,25 @@ box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     background-color: transparent;
     transition: 0.3s;
 }
-.box-edit #cancel:hover{
-    background-color: rgba(255, 140, 140,0.5);
+
+.box-edit #cancel:hover {
+    background-color: rgba(255, 140, 140, 0.5);
 }
-#save{
+
+#save {
     font-weight: bold;
     font-size: 1.5rem;
     width: 90px;
     color: green;
-    background-color: rgba(204, 252, 132,0.2);
+    background-color: rgba(204, 252, 132, 0.2);
     transition: 0.3s;
     border-right: 2px solid green;
 }
-#save:hover{
-    background-color: rgba(204, 252, 132,0.5);
+
+#save:hover {
+    background-color: rgba(204, 252, 132, 0.5);
 }
+
 .inp {
     margin-left: 10px;
     padding: 10px;
@@ -83,22 +101,34 @@ box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
-.container{
+.container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-template-rows: auto;
     gap: 10px;
     padding: 20px;
 }
 
-.item{
+.item {
+    cursor: pointer;
+}
+
+.item-content {
+    text-align: left;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     padding: 10px;
     cursor: pointer;
 }
 
-.modal-box{
+.item-info {
+    text-align: center;
+    color: #555;
+    font-weight: bold;
+    margin-top: 10px
+}
+
+
+.modal-box {
     position: fixed;
     top: 0;
     right: 0;
@@ -107,73 +137,255 @@ box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.5),rgba(150,150,150,0.5));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(150, 150, 150, 0.5));
     display: none;
 }
-.modal{
-    height: 300px;
-    min-width: 70%;
+
+.modal {
+    max-width: 70%;
+    width: 100%;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    padding: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     opacity: 0;
     transform: translatey(50px);
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    margin: 50px;
 }
-#sair-modal{
-cursor: pointer;
+
+.box-main {
+    display: flex;
+    margin: 10px;
 }
-.abrir{
+
+.box-main .obs {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-left: 3px solid blue;
+    border-radius: 5px;
+    background-color: aliceblue;
+}
+
+.info-modal {
+    padding: 0 20px;
+    flex: 1;
+    border: 1px solid #555;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.info-modal p {
+    margin-bottom: 3px;
+}
+
+.inp-text {
+    background-color: transparent;
+    outline: none;
+    font-size: 1em;
+}
+
+.time-modal {
+    margin: 10px;
+    border-top: 2px solid rgba(0, 0, 255, 0.2);
+    border-bottom: 2px solid rgba(0, 0, 255, 0.2);
+    text-align: center;
+}
+
+.img-modal {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-modal img {
+    width: 200px;
+    height: 200px;
+}
+
+.box-head {
+    display: flex;
+    background-color: #eee;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.visto {
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #ddd;
+    padding: 3px;
+    justify-items: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#sair-modal {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    border-top-right-radius: 10px;
+    padding: 0 5px;
+}
+
+#sair-modal:hover {
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+.abrir {
     animation: abrir 0.5s forwards;
 }
-.fechar{
+
+.fechar {
     animation: fechar 0.5s forwards;
 }
 
-.abrir2{
+.abrir2 {
     display: flex;
     animation: abrir2 0.3s forwards;
 }
-.fechar2{
+
+.fechar2 {
     animation: fechar2 0.3s forwards 0.3s;
 }
+
 @keyframes abrir2 {
-    0%{
+    0% {
         opacity: 0;
         display: none;
     }
-    100%{
+
+    100% {
         opacity: 1;
         display: flex;
     }
 }
+
 @keyframes fechar2 {
-    0%{
+    0% {
         opacity: 1;
         display: flex;
     }
-    100%{
+
+    100% {
         opacity: 0;
         display: none;
     }
 }
+
 @keyframes abrir {
-    0%{
+    0% {
         transform: translatey(50px);
         opacity: 0;
     }
-    100%{
+
+    100% {
         transform: translatey(0);
         opacity: 1;
     }
 }
+
 @keyframes fechar {
-    0%{
+    0% {
         transform: translatey(0);
         opacity: 1;
     }
-    100%{
+
+    100% {
         transform: translatey(50px);
         opacity: 0;
     }
+}
+
+.status {
+    margin-top: 10px;
+    background-color: aquamarine;
+    border-left: 3px solid blue;
+    padding: 2px 5px;
+}
+
+@media only screen and (max-width:768px) {
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+    .box-main{
+        flex-direction: column-reverse;
+    }
+    .modal{
+        max-width: 99%;
+        overflow-y: auto;
+        height: 650px;
+        margin-top: 50px;
+
+    }
+}
+
+@media only screen and (min-width:768px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    .box-main{
+        flex-direction:row;
+    }
+    .modal{
+        max-width: 70%;
+    }
+}
+
+@media only screen and (min-width:1024px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+}
+
+/* From Uiverse.io by vinodjangid07 */
+/* To hide the checkbox */
+#checkboxInput {
+    display: none;
+}
+
+.toggleSwitch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 50px;
+    height: 30px;
+    background-color: rgb(82, 82, 82);
+    border-radius: 20px;
+    cursor: pointer;
+    transition-duration: .2s;
+}
+
+.toggleSwitch::after {
+    content: "";
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    left: 5px;
+    background-color: transparent;
+    border-radius: 50%;
+    transition-duration: .2s;
+    box-shadow: 5px 2px 7px rgba(8, 8, 8, 0.26);
+    border: 5px solid white;
+}
+
+#checkboxInput:checked+.toggleSwitch::after {
+    transform: translateX(100%);
+    transition-duration: .2s;
+    background-color: white;
+}
+
+/* Switch background change */
+#checkboxInput:checked+.toggleSwitch {
+    background-color: rgb(148, 118, 255);
+    transition-duration: .2s;
 }

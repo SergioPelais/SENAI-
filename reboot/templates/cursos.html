@@ -4,22 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista dos cursos</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/star.css">
     <link rel="stylesheet" type="text/css" href="../static/css/gerenciarCurso.css">
 </head>
 
 <body>
     <header>
         <div class="title">
-            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px">
         </div>
         <div>
             <a href="/auth" id="btn-menu"><img src="../static/img/home.svg" width="40px" alt="voltar"></a>
         </div>
     </header>
     <main>
-
+        {% if user[4] > 1 %}
         <form class="box-addCurso" action="cursos" method="post">
             <div>
                 <button type="submit" class="add-btn">+</button>
@@ -29,26 +30,47 @@
             </div>
         </form>
         <br>
-        <h1>Lista dos cursos</h1><br>
-        <ul id="favoritos"></ul>
-        <ul>
+        {% endif %}
+        <h2>Lista dos cursos</h2><br>
+        <div class="grid-container" id="favoritos"></div><br>
+        <div class="grid-container">
             {% for item in lista %}
-            <li id="{{item[0]}}">
-                <a href="/registros/{{item[0]}}">
-                    <div style="flex: 3;">{{ item[1] }}</div>
-                    <div class="notification none">
-                        {% if item[2] > 0 %}
-                        <img src="../static/img/notifications.svg" width="40px" alt="notification">
-                        <p>{{item[2]}}</p>
-                        {% endif %}
+            <a href="/registros/{{item[0]}}" id="item-id-{{item[0]}}">
+                <div class="item">
+                    <div class="head-item">
+                        <h3 style="flex: 3;">{{item[1]}}</h3>
+                        <!-- From Uiverse.io by vinodjangid07 -->
+                        <label class="container">
+                            <input type="checkbox" class="checkbox" id="checkbox-id-{{item[0]}}" value="{{item[0]}}"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 75 100" class="pin">
+                                <line stroke-width="12" stroke="black" y2="100" x2="37" y1="64" x1="37"></line>
+                                <path stroke-width="10" stroke="black"
+                                    d="M16.5 36V4.5H58.5V36V53.75V54.9752L59.1862 55.9903L66.9674 67.5H8.03256L15.8138 55.9903L16.5 54.9752V53.75V36Z">
+                                </path>
+                            </svg>
+                        </label>
                     </div>
-                </a>
-                <button id="keep" onclick="addmarker('{{item[0]}}')">
-                    <img src="../static/img/keep.svg" width="40px" alt="notification">
-                </button>
-            </li>
+                    <div class="main-item none">
+                        <div style="flex: 3;">
+                            <p>{{'Em espera ➤ '~item[3][0] if item[3][0] != 0 else ''}}</p>
+                            <p>{{'confirmado ➤ '~item[3][1] if item[3][1] != 0 else ''}}</p>
+                            <p>{{'pendente ➤ '~item[3][3] if item[3][3] != 0 else ''}}</p>
+                            <p>{{'negado ➤ '~item[3][2] if item[3][2] != 0 else ''}}</p>
+                            <p>{{'em espera do responsável ➤ '~item[3][4] if item[3][4] != 0 else ''}}</p>
+                        </div>
+                        <div class="notification none">
+                            <div style="display: flex;">
+                                {% if item[2] > 0 %}
+                                <img src="../static/img/notifications.svg" width="30px" alt="notification">
+                                <p>{{item[2]}}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
             {% endfor %}
-        </ul>
+        </div>
     </main>
     <footer>
         <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>

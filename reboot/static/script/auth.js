@@ -53,15 +53,13 @@ async function teste() {
     cod = !cod
 
     if (cod) {
-        container[0].style.transform = `translateX(-104%)`
+        container[0].style.transform = `translateX(-115%)`
         await delay(1000)
         container[0].style.display = 'none'
-        container[1].style.display = 'grid'
+        container[1].style.display = 'flex'
         await delay(100)
         container[1].style.transform = `translateY(0)`
         container[1].style.opacity = 1
-        await delay(300)
-        container[1].classList.add('anima-menu')
     } else {
         container[1].style.transform = `translateY(-104%)`
         container[1].style.opacity = 0
@@ -70,15 +68,15 @@ async function teste() {
         container[1].style.display = 'none'
         await delay(100)
         container[0].style.transform = `translateX(0)`
-        container[1].classList.remove('anima-menu')
     }
 }
 
 // buscando aluno
-const estado = document.getElementById('estado') //serve para definir se o anulo é de menor para comunicacao com py
+const estado = document.getElementById('estado') //serve para definir se o aluno é de menor para comunicacao com py
 const listaAlunos = bd
 const ul = document.getElementById('resultados');
 let resultadoAluno = ''
+
 input[0].addEventListener('input', function () {
     const termo = this.value.toLowerCase();
 
@@ -103,7 +101,7 @@ function mostrarResultados(lista) {
 }
 
 function atalho2(i) {
-    resultadoAluno = listaAlunos[i - 1]
+    resultadoAluno = listaAlunos.find(u => u[0] === i);
 }
 
 const idAluno = document.getElementById('id-aluno')

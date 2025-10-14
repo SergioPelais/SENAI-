@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autorização-entrada-saída</title>
+    <title>cadastro do aluno</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <link rel="stylesheet" type="text/css" href="../static/css/alunos.css">
 </head>
@@ -12,98 +12,66 @@
 <body>
     <header>
         <div class="title" style="flex: 3;">
-            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px">
         </div>
-        <p id="bem-vindo"><b>{{hello}}</b></p>
         <div>
             <a href="/auth" id="btn-menu"><img src="../static/img/home.svg" width="40px" alt="voltar"></a>
         </div>
     </header>
 
     <main>
-        <div class="container">
-            <div style="text-align: center;color: #460739;">
-                <h1>cadastro do aluno</h1>
-            </div>
-
-            <form method="POST" action="">
-
-                <h2>Selecione uma imagem</h2>
-                <form action="/" method="post" enctype="multipart/form-data">
+        <div class="container" style="justify-items: center;">
+            <h2>{{ 'Atualizar' if edit>0 else 'Cadastrar'}}</h2>
+            <form method="POST" class="formulario" action="/alunos{{ '/'~edit if edit>0 else ''}}" enctype="multipart/form-data">
+                {% if edit>0 %}
+                <a href="/alunos" id="btn-cancel">Cancelar</a>
+                {% endif %}
+                <div style="text-align: center;">
+                    <label for="imageInput" class="botao-upload">
+                        <div class="tela"><img src="../static/img/edit.svg" width="100px" style="pointer-events: none" alt=""></div>
+                        <img id="imagePreview" src="{{ '/imagem/'~edit if edit>0 else '../static/img/user.svg'}}" alt="">
+                    </label>
                     <input type="file" id="imageInput" name="img" accept="image/*">
-                    <button type="submit">salvar</button>
-                </form>
-                <br>
-
-                <div class="preview-container">
-                    
-                    <img id="imagePreview" src="#" alt="Preview da Imagem">
                 </div>
-                <br>
-
 
                 <label><b>Aluno</b></label><br>
-                <input class="inp" style="margin-bottom: 10px;" placeholder="Digite aqui o nome do aluno..." required>
-
-                <ul id="resultados"></ul><br>
-
-
-
-
+                <input class="inp" placeholder="Digite aqui o nome do aluno..." value="{{aluno[0]}}" name="nome" required>
 
                 <label><b>Data de Nascimento</b></label><br>
-                <input class="inp" id="dataNascimento" value="2025-01-01" type="date" name="data" required>
-
-
+                <input class="inp" id="dataNascimento" type="date" value="{{aluno[1]}}" name="data" required>
 
                 <label><b>CPF</b></label>
-                <input class="inp" type="number" name="cpf" id="cpf" placeholder="Digite aqui o CPF...">
+                <input class="inp" type="number" name="cpf" value="{{aluno[2]}}" placeholder="Digite aqui o CPF..." required>
 
                 <label><b>Email do Responsável</b></label>
-                <input class="inp" type="text" name="email" id="email" placeholder="Email do Responsável...">
+                <input class="inp" type="text" name="email" value="{{aluno[3]}}" placeholder="Email do Responsável...">
 
                 <label><b>Telefone do Responsável</b></label>
-                <input class="inp" type="number" name="cpf" id="cpf" placeholder="Telefone do Responsável...">
+                <input class="inp" type="number" name="tell" value="{{aluno[4]}}" placeholder="Telefone do Responsável...">
 
                 <div style="text-align: center;">
-                    <button type="submit" style="margin-bottom: 20px;" id="btnform">Enviar</button>
+                    <button type="submit" style="margin-bottom: 20px;" id="btnform">Salvar</button>
                 </div>
             </form>
         </div>
-        <div id="title-menu" style="display: none; opacity: 0;transition: 0.5s;">
-            <h1>Menu</h1>
-            <p>Aqui é apresentado a sua conta, e os acessos que possuí.</p>
+        <div class="container space" style="padding-left: 10px;">
+            <h2>Lista dos alunos</h2>
+            <div style="margin-top: 5px;">
+                <div class="box-busca">
+                    <input class="inp-busca" style="margin-bottom: 10px;" placeholder="buscar aluno...">
+                    <img src="../static/img/search.svg" width="30px" alt="">
+                </div>
+                <ul id="lista"></ul>
+            </div>
         </div>
-
-
     </main>
     <footer>
         <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>
     </footer>
     <script>
-        const input = document.getElementById('imageInput');
-        const preview = document.getElementById('imagePreview');
-
-        input.addEventListener('change', function () {
-            const file = this.files[0];
-            console.log(file)
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.addEventListener('load', function () {
-                    preview.setAttribute('src', this.result);
-                    preview.style.display = 'block';
-                });
-
-                reader.readAsDataURL(file);
-            } else {
-                preview.style.display = 'none';
-            }
-        });
-
+        const bd = JSON.parse('{{ listaAlunos | safe }}');
     </script>
-    <script src="../static/script/auth.js"></script>
+    <script src="../static/script/alunos.js"></script>
 </body>
 
 </html>

@@ -1,12 +1,14 @@
 main {
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
 }
+
 #bem-vindo{
     animation: ola 2s forwards 2s;
+    color: #eee;
 }
 @keyframes ola {
     100%{
@@ -19,7 +21,7 @@ main {
 .container {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     width: 100%;
-    max-width: 99%;
+    max-width: 80%;
     padding: 20px;
     border-radius: 10px;
     transition: 1s;
@@ -228,68 +230,30 @@ textarea {
     opacity: 0;
     transform: translateY(-104%);
     box-shadow: none;
-    grid-template-rows: auto;
-    height: 20px;
-    overflow: hidden;
-}
-
-.anima-menu {
-    animation: abrir 0.7s forwards;
-}
-
-@keyframes abrir {
-    100% {
-        height: 500px;
-    }
-}
-.title-grid{
-    text-align: center;
-}
-
-.item-menu {
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 15px;
     display: flex;
+}
+
+.menu-perfil{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    text-decoration: none;
+}
+.perfil{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); 
+    max-width: 80%;
+    width: 100%;
+    border-radius: 15px;
     padding: 20px;
-    
 }
-.item{
-    font-size: 1rem;
-    font-weight: bold;
-    transition: 0.2s;  
+.menu-acesso{
+    flex: 1;
 }
-.item:hover{
-    border-top: 1px solid blue;
-    border-bottom: 1px solid blue;
-    background-color: #eee;
-    padding-left: 10%;
+.opcao-menu{
+    list-style: none;
 }
 
-.item-menu h1 {
-    font-size: 1.8em;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-
-.item-menu h3 {
-    font-size: 1.2em;
-    color: #555;
-    margin-bottom: 5px;
-}
-
-.item-menu p {
-    font-size: 1em;
-    color: #777;
-    margin-bottom: 20px;
-}
-
-.item-menu #sair-login {
+#sair-login {
     padding: 10px 20px;
     background-color: #ff4b5c;
     color: white;
@@ -297,15 +261,15 @@ textarea {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s;
     align-self: center;
     justify-self: center;
-    width: 20%;
     text-decoration: none;
 }
 
-.item-menu #sair-login:hover {
+#sair-login:hover {
     background-color: #ca676f;
+    transform: translateY(-5px);
 }
 
 #resultados {
@@ -336,14 +300,62 @@ textarea {
     font-size: 5px;
 }
 
+/* From Uiverse.io by SujitAdroja */ 
+.btn {
+    width: 100%;
+  color: purple;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid purple;
+  padding: 10px 20px;
+  font-size: 17px;
+  cursor: pointer;
+  font-weight: bold;
+  background: transparent;
+  position: relative;
+  transition: all 1s;
+  overflow: hidden;
+}
+
+.btn:hover {
+  color: white;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  top: 0;
+  left: -40px;
+  transform: skewX(45deg);
+  background-color: purple;
+  z-index: -1;
+  transition: all 1s;
+}
+
+.btn:hover::before {
+  width: 160%;
+}
+
 @media only screen and (max-width:768px) {
     .tags {
         gap: 10px;
         grid-template-columns: repeat(2, 1fr);
     }
-    .menu {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 10px;
+    .opcao-menu li{
+        margin-bottom: 5px;
+    }
+    .container{
+        max-width: 99%;
+    }
+    .menu{
+        flex-direction: column;
+    }
+    .perfil{
+        max-width: 99%;
+        width: 100%;
+        padding: 10px;
     }
 }
 
@@ -352,13 +364,19 @@ textarea {
         gap: 30px;
         grid-template-columns: repeat(3, 1fr);
     }
-    .menu {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
+    .opcao-menu li{
+        margin-bottom: 15px;
     }
-
-    .it1 {
-        grid-column: 1 / 3;
+    .container{
+        max-width: 80%;
+    }
+    .menu{
+        flex-direction: row;
+    }
+    .perfil{
+        max-width: 90%;
+        width: 100%;
+        padding: 10px;
     }
 }
 
@@ -367,12 +385,12 @@ textarea {
         gap: 40px;
         grid-template-columns: repeat(4, 1fr);
     }
-    .menu {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+    .opcao-menu li{
+        margin-bottom: 10px;
     }
-
-    .it1 {
-        grid-column: 1 / 4;
+    .perfil{
+        max-width: 80%;
+        width: 100%;
+        padding: 20px;
     }
 }

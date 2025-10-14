@@ -1,15 +1,7 @@
 main {
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-}
-
-ul {
-    list-style: none;
-}
-
-ul a {
-    text-decoration: none;
 }
 
 .box-addCurso {
@@ -57,74 +49,64 @@ ul a {
     transform: translateY(-3px) scale(1.01);
 }
 
-
-ul li{
-    display: flex;
-    height: 70px;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #ecd;
+.grid-container {
+    display: grid;
+    grid-template-rows: auto;
 }
-ul a {
-    flex: 3;
+
+.item {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.head-item {
     display: flex;
+    background-color: #ddd;
+    padding: 0 10px;
     align-items: center;
-    padding: 0 20px;
-    background-color: aliceblue;
-    transition: 0.2s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
-ul a:hover {
+.main-item {
+    display: flex;
+    padding: 10px;
+}
+
+.notification {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.notification p {
+    color: #b09932;
     font-weight: bold;
-    background-color: #ccc;
-    color: #333;
-    padding: 0 30px;
-    font-size: 1.1em;
+    font-size: 13px;
 }
-ul a:hover .notification{
-    display: none;
-}
-#keep{
-    display: none;
-    transition: 0.2s;
-}
-ul li:hover #keep,#keep2{
-    display: block;
-}
-#keep:hover{
-    background-color: rgb(179, 220, 255);
-}
-#keep2{
-    background-color: rgb(179, 220, 255);
-    transition: 0.2s;
-}
-#keep2:hover{
-    background-color: rgb(98, 182, 255);
-}
-.notification{display: flex;}
-.notification img {
-    border-radius: 50%;
-}
-.notification p{
-    color: rgb(104, 104, 17);
-    margin-left: 3px;
+
+#favoritos {
+    border-bottom: 1px solid #555;
+    padding-bottom: 20px;
 }
 
 @media only screen and (max-width:768px) {
-#keep{
-    display: block;
-}
+    .grid-container {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
 }
 
 @media only screen and (min-width:768px) {
-#keep{
-    display: block;
-}
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
 }
 
 @media only screen and (min-width:1024px) {
-#keep{
-    display: none;
-}
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
 }
