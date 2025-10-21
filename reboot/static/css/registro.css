@@ -1,5 +1,8 @@
 .config {
     display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 form {
@@ -101,6 +104,23 @@ form {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
+.inp2 {
+    padding: 5px;
+    background-color: #eee;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    outline: none;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.inp2:focus {
+    transform: translateY(-10px);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
 .container {
     display: grid;
     grid-template-rows: auto;
@@ -130,6 +150,7 @@ form {
 
 .modal-box {
     position: fixed;
+    height: 100vh;
     top: 0;
     right: 0;
     bottom: 0;
@@ -139,6 +160,7 @@ form {
     justify-content: center;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(150, 150, 150, 0.5));
     display: none;
+    z-index: 10000;
 }
 
 .modal {
@@ -152,7 +174,7 @@ form {
     display: flex;
     flex-direction: column;
     font-size: 1.2rem;
-    margin: 50px;
+    margin: 10px;
 }
 
 .box-main {
@@ -223,7 +245,7 @@ form {
     border-bottom-right-radius: 10px;
 }
 
-#sair-modal {
+.sair-modal {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -233,7 +255,7 @@ form {
     padding: 0 5px;
 }
 
-#sair-modal:hover {
+.sair-modal:hover {
     background-color: rgba(255, 0, 0, 0.3);
 }
 
@@ -309,41 +331,11 @@ form {
     padding: 2px 5px;
 }
 
-@media only screen and (max-width:768px) {
-    .container {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 10px;
-    }
-    .box-main{
-        flex-direction: column-reverse;
-    }
-    .modal{
-        max-width: 99%;
-        overflow-y: auto;
-        height: 650px;
-        margin-top: 50px;
-
-    }
-}
-
-@media only screen and (min-width:768px) {
-    .container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-    }
-    .box-main{
-        flex-direction:row;
-    }
-    .modal{
-        max-width: 70%;
-    }
-}
-
-@media only screen and (min-width:1024px) {
-    .container {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-    }
+.box-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
 }
 
 /* From Uiverse.io by vinodjangid07 */
@@ -388,4 +380,227 @@ form {
 #checkboxInput:checked+.toggleSwitch {
     background-color: rgb(148, 118, 255);
     transition-duration: .2s;
+}
+
+/* From Uiverse.io by andrew-demchenk0 */
+.button {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    border-radius: 5px;
+    flex-direction: row-reverse;
+
+    align-items: center;
+    border: 1px solid #cc0000;
+    background-color: #e50000;
+    overflow: hidden;
+}
+
+.button,
+.button__icon,
+.button__text {
+    transition: all 0.3s;
+}
+
+.button .button__text {
+    transform: translateX(-15px);
+    color: #fff;
+    font-weight: 600;
+}
+
+.button .button__icon {
+    position: absolute;
+    transform: translateX(-109px);
+    height: 100%;
+    width: 39px;
+    background-color: #cc0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button .svg {
+    width: 20px;
+}
+
+.button:hover {
+    background: #cc0000;
+}
+
+.button:hover .button__text {
+    color: transparent;
+}
+
+.button:hover .button__icon {
+    width: 148px;
+    transform: translateX(0);
+}
+
+.button:active .button__icon {
+    background-color: #b20000;
+}
+
+.button:active {
+    border: 1px solid #b20000;
+}
+
+/* From Uiverse.io by WhiteNervosa */
+.customCheckBoxHolder {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.customCheckBox {
+    width: fit-content;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    padding: 2px 8px;
+    background-color: rgba(0, 0, 0, 0.16);
+    border-radius: 0px;
+    color: rgba(68, 68, 68, 0.7);
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 300ms;
+    transition-property: color, background-color, box-shadow;
+    display: flex;
+    height: 32px;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 1px 0px inset, rgba(255, 255, 255, 0.17) 0px 1px 1px 0px;
+    outline: none;
+    justify-content: center;
+    min-width: 55px;
+}
+
+.customCheckBox:hover {
+    background-color: #2c2c2c;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset, rgba(255, 255, 255, 0.17) 0px -1px 1px 0px, rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
+}
+
+.customCheckBox .inner {
+    font-size: 18px;
+    font-weight: 900;
+    pointer-events: none;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 300ms;
+    transition-property: transform;
+    transform: translateY(0px);
+}
+
+.customCheckBox:hover .inner {
+    transform: translateY(-2px);
+}
+
+.customCheckBoxWrapper:first-of-type .customCheckBox {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-right: 0px;
+}
+
+.customCheckBoxWrapper:last-of-type .customCheckBox {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-left: 0px;
+}
+
+.customCheckBoxInput {
+    display: none;
+}
+
+.customCheckBoxInput:checked+.customCheckBoxWrapper .customCheckBox {
+    background-color: #2d6737;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset, rgba(255, 255, 255, 0.17) 0px -1px 1px 0px, rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
+}
+
+.customCheckBoxInput:checked+.customCheckBoxWrapper .customCheckBox .inner {
+    transform: translateY(-2px);
+}
+
+.customCheckBoxInput:checked+.customCheckBoxWrapper .customCheckBox:hover {
+    background-color: #34723f;
+    box-shadow: rgba(0, 0, 0, 0.26) 0px -4px 1px 0px inset, rgba(255, 255, 255, 0.17) 0px -1px 1px 0px, rgba(0, 0, 0, 0.15) 0px 3px 6px 2px;
+}
+
+.customCheckBoxWrapper .customCheckBox:hover .inner {
+    transform: translateY(-2px);
+}
+
+
+@media only screen and (max-width:768px) {
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+
+    .box-main {
+        flex-direction: column-reverse;
+    }
+
+    .modal {
+        max-width: 99%;
+        overflow-y: auto;
+        max-height: 650px;
+    }
+
+    .modal-cod {
+        max-width: 99%;
+        height: auto;
+    }
+
+    .box-btn {
+        flex-direction: column;
+    }
+
+    .customCheckBoxHolder {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (min-width:768px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .box-main {
+        flex-direction: row;
+    }
+
+    .modal {
+        max-width: 70%;
+    }
+
+    .modal-cod {
+        max-width: 40%;
+    }
+
+    .box-btn {
+        flex-direction: row;
+    }
+
+    .customCheckBoxHolder {
+        flex-direction: row;
+    }
+}
+
+@media only screen and (min-width:1024px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+}
+
+aside {
+    position: fixed;
+    overflow-y: auto;
+    top: 50px;
+    right: 0;
+    bottom: 4.3vh;
+    width: 300px;
+    background-color: #cacaca;
 }

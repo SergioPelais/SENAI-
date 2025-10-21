@@ -8,6 +8,7 @@ from email.message import EmailMessage
 import os
 import smtplib
 import random
+from datetime import datetime
 
 #carrega a função para consulta do banco de dados 
 conectBD = database_connection.consultaBD
@@ -51,12 +52,13 @@ def msg(cod=1):
     return mensagem[0]
 
 # conta do usuario ativo
-user = None#[1,1234567,1234,'esposto',2]
+user =  (4, 2345678, '1234', 'fabio', 3)
 
 @app.route('/',methods=["GET","POST"])
 def inicio ():
     global user,mensagem
     user = None
+
     if request.method == "POST":
         nif = request.form.get('nif')
         senha = request.form.get('senha')
@@ -65,8 +67,11 @@ def inicio ():
         user = conectBD('SELECT id, nif, senha, nome, autoridade FROM funcionarios WHERE ativo=1 AND nif=%s AND senha=%s;',1,values)
 
         if user:
-            mensagem[1]=0
-            mensagem[0]=f"bem vindo! {user[3]}"
+            if user[4] != 2:
+                mensagem[1]=0
+                mensagem[0]=f"bem vindo! {user[3]}"
+            if user[4] == 2:
+                return redirect(url_for('registroGeral'))
             return redirect(url_for('auth'))
         
         mensagem[0]="Login ou senha, incorretos!"
@@ -91,11 +96,31 @@ def auth ():
             userID = user[0] #docente
             cursoID = request.form.get('curso')
 
+            try:
+                alunoID = int(alunoID)
+            except (ValueError, TypeError):
+                listCursos = conectBD('SELECT id,nome FROM cursos WHERE ativo = 1;', 2)
+                alunos = conectBD('SELECT id,nome,data_nascimento,email_resp,telefone_resp FROM alunos WHERE ativo=1;', 2)
+
+                mensagem[0]='Aluno não encontrado'
+                mensagem[1]=0
+                return redirect(url_for('auth'))
+
+            alunoExiste = conectBD('SELECT id FROM alunos WHERE id = %s AND ativo = 1;', 1, (alunoID,))
+            if not alunoExiste:
+                listCursos = conectBD('SELECT id,nome FROM cursos WHERE ativo = 1;', 2)
+                alunos = conectBD('SELECT id,nome,data_nascimento,email_resp,telefone_resp FROM alunos WHERE ativo=1;', 2)
+                return redirect(url_for('auth'))
+
+
             #salvando autorizacao no banco de dados
             id_auth = conectBD('INSERT INTO entrada_saida (caso, id_aluno, atividade, id_curso, data_ocorrencia, horario, motivo, obs, id_docente) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);',3,(caso,alunoID,atividade,cursoID,dia,hora,motivo,obs,userID))
 
             #tratamento de comunicacao do estado da autorizacao
-            conectBD(f'INSERT INTO status_auth (id_auth) VALUES ({id_auth});')
+            id_status = conectBD(f'INSERT INTO status_auth (id_auth) VALUES ({id_auth});',3)
+            if user[4]==3:
+                tempo = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                conectBD(f'UPDATE status_auth SET aprovado={user[0]}, at_aprovado = "{tempo}" WHERE id={id_status}')
 
             #atualizando informações do curso que recebeu a autorizacao
             notInt = conectBD(f'SELECT notification FROM cursos WHERE id = {cursoID};',1)
@@ -105,7 +130,6 @@ def auth ():
             conectBD(f'UPDATE cursos SET notification = {notInt[0]+1}, cenarios = "{cenarios}"  WHERE id = {cursoID};')
 
             # verificando se é preciso alertar o responsavel
-            """
             estado = request.form.get('estado')
             emailResp = request.form.get('emailResp')
             solicitarCod = request.form.get('receber_codigo')
@@ -113,11 +137,19 @@ def auth ():
             msgEmail = ''
             if estado == 'true':
                 if caso=='Saída' and solicitarCod == 'sim':
-                    msgEmail = 'solicitação do aluno com código [XXXXXX]'
+                    numero = random.randint(1000000, 9999999)
+                    msgEmail = f'solicitação do aluno com código [{numero}]'
+                    conectBD(f'UPDATE status_auth SET cod = {numero}, cenario = 5 WHERE id = {id_status}')
+                    #callEmail(emailResp,docente,f"Solicitação de {'Saída'if caso == 'Saída' else 'Entrada'}",msgEmail)
+                    mensagem[0] = id_auth
+                    mensagem[1] = 0
+                    return redirect(url_for('registroGeral'))
                 else:
                     msgEmail = 'solicitação do aluno sem código'
+                    conectBD(f'UPDATE status_auth SET cod = 2 WHERE id = {id_status}')
+
                 callEmail(emailResp,docente,f"Solicitação de {'Saída'if caso == 'Saída' else 'Entrada'}",msgEmail)
-            """
+
             return redirect(url_for('auth'))
         listCursos = conectBD('SELECT id,nome FROM cursos WHERE ativo = 1;',2)
         alunos = conectBD('SELECT id,nome,data_nascimento,email_resp,telefone_resp FROM alunos WHERE ativo=1;',2)
@@ -163,12 +195,14 @@ def registros (id):
             auth_alunos[i][2] = [item[2],conectBD(f"SELECT nome FROM alunos WHERE id={item[2]};",1)[0]]
             auth_alunos[i][8] = conectBD(f"SELECT nome FROM funcionarios WHERE id={item[8]};",1)[0]
         
-        data2 = conectBD(f'SELECT id, id_auth, cenario, visto FROM status_auth WHERE ativo=1 ',2)
+        data2 = conectBD(f'SELECT id, id_auth, cenario, visto, aprovado, cod, at_visto, at_aprovado FROM status_auth WHERE ativo=1 ',2)
         data_status = [list(i) for i in data2]
         for i,item in enumerate(data_status):
             if item[3]:
                 data_status[i][3] = conectBD(f"SELECT nome FROM funcionarios WHERE id={item[3]};",1)[0]
-        
+            if item[4]:
+                data_status[i][4] = conectBD(f"SELECT nome FROM funcionarios WHERE id={item[4]};",1)[0]
+
         return render_template('registros.html',curso=json.dumps([id,curso],default=str),lista=[id,curso],auth_alunos=json.dumps(auth_alunos,default=str),data_status=json.dumps(data_status,default=str), user=user)
     return redirect(url_for('inicio'))
 
@@ -176,7 +210,12 @@ def registros (id):
 def deleteCurso (id):
     global user
     if user:
-        conectBD(f'UPDATE cursos SET ativo = 0 WHERE id = {id};')
+        conectBD(f'UPDATE cursos SET ativo = 0 WHERE id = {id} AND ativo = 1;')
+        conectBD(f'UPDATE entrada_saida SET ativo = 0 WHERE id_curso = {id} AND ativo = 1;')
+        id_auth = [e[0] for e in conectBD(f'SELECT id FROM entrada_saida WHERE id_curso = {id} AND ativo = 1;',2)]
+        if len(id_auth):
+            conectBD(f'UPDATE status_auth SET ativo = 0 WHERE id_auth IN {tuple(id_auth)} AND ativo = 1;')
+
         return jsonify({'redirect_url': url_for('cursos')})
     return redirect(url_for('inicio'))
 
@@ -243,21 +282,74 @@ def visto(id,id_status,ativo):
     for i in range(len(cenarios)):
         cenarios[i] = conectBD(f'SELECT COUNT(*) FROM status_auth WHERE cenario = {i+1};',1)[0]
         conectBD(f'UPDATE cursos SET cenarios = "{cenarios}"  WHERE id = {id};')
+    tempo = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    if user[4] == 2:
+        conectBD(f'UPDATE status_auth SET cenario = {ativo}, visto = {user[0]}, at_visto = "{tempo}" WHERE id = {id_status};')
+    elif user[4] == 3:
+        conectBD(f'UPDATE status_auth SET aprovado = {user[0]}, at_aprovado = "{tempo}" WHERE id = {id_status};')
 
-    conectBD(f'UPDATE status_auth SET cenario = {ativo}, visto = {user[0]} WHERE id = {id_status};')
+    if id != 0:
+        return jsonify({'redirect_url': url_for('registros',id=id)})
+    return jsonify({'redirect_url': url_for('registroGeral')})
+
+@app.route('/registros',methods=["GET","POST"])
+def registroGeral ():
+    global user, mensagem
+    if user:
+        data = conectBD(f'SELECT id,caso,id_aluno,atividade,data_ocorrencia,horario,motivo,obs,id_docente, id_curso FROM entrada_saida WHERE ativo = 1;',2)
+        auth_alunos = [list(i) for i in data]
+        for i,item in enumerate(auth_alunos):
+            auth_alunos[i][2] = [item[2],conectBD(f"SELECT nome FROM alunos WHERE id={item[2]};",1)[0]]
+            auth_alunos[i][8] = conectBD(f"SELECT nome FROM funcionarios WHERE id={item[8]};",1)[0]
+            auth_alunos[i][9] = [item[9],conectBD(f"SELECT nome FROM cursos WHERE id={item[9]};",1)[0]]
+        
+        data2 = conectBD(f'SELECT id, id_auth, cenario, visto, aprovado, cod, at_visto, at_aprovado FROM status_auth WHERE ativo=1 ',2)
+        data_status = [list(i) for i in data2]
+        for i,item in enumerate(data_status):
+            if item[3]:
+                data_status[i][3] = conectBD(f"SELECT nome FROM funcionarios WHERE id={item[3]};",1)[0]
+            if item[4]:
+                data_status[i][4] = conectBD(f"SELECT nome FROM funcionarios WHERE id={item[4]};",1)[0]
+        msg()
+        return render_template('registrosAll.html',auth_alunos=json.dumps(auth_alunos,default=str),data_status=json.dumps(data_status,default=str), user=user, id_modal = mensagem[0])
+    return redirect(url_for('inicio'))
+
+@app.route('/limpar/<int:id>',methods=["GET","POST"])
+def limpar (id):
+    lista_ids = conectBD('SELECT id, id_auth FROM status_auth WHERE aprovado IS NOT NULL AND visto IS NOT NULL AND ativo = 1;',2)
+    id_status = [e[0] for e in lista_ids]
+    id_auht = [e[1] for e in lista_ids]
+    if len(id_status) and len(id_auht):
+        conectBD('UPDATE status_auth SET ativo = 0 WHERE id IN (%s);',0,id_status)
+        conectBD('UPDATE entrada_saida SET ativo = 0 WHERE id IN (%s);',0,id_auht)
     return jsonify({'redirect_url': url_for('registros',id=id)})
 
-@app.route('/fixados/<string:lista>', methods=['POST'])
-def fixados(lista=None):
-    global user
+@app.route('/limpar',methods=["GET","POST"])
+def limpar2 ():
+    lista_ids = conectBD('SELECT id, id_auth FROM status_auth WHERE aprovado IS NOT NULL AND visto IS NOT NULL AND ativo = 1;',2)
+    id_status = [e[0] for e in lista_ids]
+    id_auht = [e[1] for e in lista_ids]
+    if len(id_status) and len(id_auht):
+        conectBD('UPDATE status_auth SET ativo = 0 WHERE id IN (%s);',0,id_status)
+        conectBD('UPDATE entrada_saida SET ativo = 0 WHERE id IN (%s);',0,id_auht)
+    return jsonify({'redirect_url': url_for('registroGeral')})
 
-    ids = ast.literal_eval(conectBD(f'SELECT cursos_fixados FROM funcionarios WHERE id = {user[0]};',1)[0])
+@app.route('/verificacao',methods=["GET","POST"])
+def verificacao ():
+    if request.method == "POST":
+        id = request.form.get('id')
+        cod = request.form.get('cod')
+        id_status = request.form.get('id_status')
 
+        pass_cod = conectBD(f'SELECT cod FROM status_auth WHERE id = {id_status}',1)[0]
 
-    if(lista!='[]'):
-        ids.append(lista[0])
-        #conectBD(f'UPDATE funcionarios SET cursos_fixados = [{lista[0]}] WHERE id = {user[0]};')
-    return jsonify('[]')
+        if pass_cod == int(cod):
+            conectBD(f'UPDATE status_auth SET cod = 1 WHERE id = {id_status}')
+            conectBD(f'UPDATE status_auth SET cenario = 1 WHERE id = {id_status};')
+    
+        if id!='0':
+            return redirect(url_for('registros',id=id))
+    return redirect(url_for('registroGeral'))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True) 

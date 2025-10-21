@@ -120,12 +120,14 @@ input[0].addEventListener('blur', async function () {
         } else {
             ul.innerHTML = 'Aluno não encontrado...';
             ul.style.color = 'red'
+            input[5].value = ''
+            input[4].value = ''
         }
     } else { ul.innerHTML = ''; }
     idAluno.value = 'none'
     boxEmail.style.display = 'none'
-    input[6].value = ''
     input[5].value = ''
+    input[4].value = ''
 
 })
 
@@ -137,17 +139,19 @@ function notificar() {
 
     if (dataAtual.getMonth() + 1 >= mes) {
         if (dataAtual.getDate() >= dia || dataAtual.getMonth() + 1 > mes) {
-            idade = dataAtual.getFullYear()-ano
+            idade = dataAtual.getFullYear() - ano
         }
-    }else{idade = (dataAtual.getFullYear()-ano)-1}
-    
-    if (idade >=18) {
+    } else { idade = (dataAtual.getFullYear() - ano) - 1 }
+
+    if (idade >= 18) {
         estado.value = false
         boxEmail.style.display = 'none'
         return
     }
-    document.getElementById('email-print').textContent = resultadoAluno[4]
-    document.getElementById('tell-print').textContent = resultadoAluno[5]
+    document.getElementById('email-print').textContent = resultadoAluno[3]
+    document.getElementById('tell-print').textContent = resultadoAluno[4]
+    input[4].value = resultadoAluno[3]
+    input[5].value = resultadoAluno[4]
     estado.value = true
     boxEmail.style.display = 'block'
     msgNotificar()

@@ -23,46 +23,70 @@
     }
   </style>
 </head>
+<input type="text" id="campo-filtro" placeholder="Digite um nome...">
+<button onclick="filtrar()">Buscar</button>
+
+<div id="resultado-unico" style="margin-top: 20px;"></div>
+
+<div id="navegacao" style="margin-top: 10px; display: none;">
+    <button onclick="anterior()">Anterior</button>
+    <span id="contador"></span>
+    <button onclick="proximo()">Próximo</button>
+</div>
+
 <body>
 
-  <h2>Selecione uma imagem</h2>
-  <form action="/" method="post" enctype="multipart/form-data">
-    <input type="file" id="imageInput" name="img" accept="image/*">
-    <button type="submit">salvar</button>
-  </form>
-
-  <div class="preview-container">
-    <h2>preview-container do input</h2>
-    <img id="imagePreview" src="#" alt="Preview da Imagem">
-  </div>
-  <hr>
-  <div class="preview-container">
-    <h2>preview-container salvo no banco</h2>
-    <img src="/imagem/1" alt="Imagem do banco" style="max-width: 300px;">
-    <img src="/imagem/2" alt="Imagem do banco" style="max-width: 300px;">
-  </div>
-
   <script>
-    const input = document.getElementById('imageInput');
-    const preview = document.getElementById('imagePreview');
+    const lista = [
+    "Ana Beatriz",
+    "Bruno Silva",
+    "Carlos Eduardo",
+    "Daniela Rocha",
+    "Eduardo Ramos",
+    "Fernanda Lima",
+    "Gabriel Souza"
+];
 
-    input.addEventListener('change', function () {
-      const file = this.files[0];
-      console.log(file)
+let resultados = [];
+let indiceAtual = 0;
 
-      if (file) {
-        const reader = new FileReader();
+function filtrar() {
+    const termo = document.getElementById("campo-filtro").value.toLowerCase();
 
-        reader.addEventListener('load', function () {
-          preview.setAttribute('src', this.result);
-          preview.style.display = 'block';
-        });
+    resultados = lista.filter(nome => nome.toLowerCase().includes(termo));
+    indiceAtual = 0;
 
-        reader.readAsDataURL(file);
-      } else {
-        preview.style.display = 'none';
-      }
-    });
+    if (resultados.length > 0) {
+        mostrarResultado();
+        document.getElementById("navegacao").style.display = "block";
+    } else {
+        document.getElementById("resultado-unico").innerHTML = "<p>Nenhum resultado encontrado.</p>";
+        document.getElementById("navegacao").style.display = "none";
+    }
+}
+
+function mostrarResultado() {
+    const nome = resultados[indiceAtual];
+    document.getElementById("resultado-unico").innerHTML = `<p><strong>Resultado:</strong> ${nome}</p>`;
+    document.getElementById("contador").textContent = `${indiceAtual + 1} de ${resultados.length}`;
+}
+
+function proximo() {
+    if (indiceAtual < resultados.length - 1) {
+        indiceAtual++;
+        mostrarResultado();
+    }
+}
+
+function anterior() {
+    if (indiceAtual > 0) {
+        indiceAtual--;
+        mostrarResultado();
+    }
+}
+
+
+
   </script>
 
 </body>

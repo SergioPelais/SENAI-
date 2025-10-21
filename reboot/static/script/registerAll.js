@@ -1,4 +1,3 @@
-const curso = data
 const auth_alunos = data_auth
 const auth_alunos_status = data_status
 
@@ -7,28 +6,7 @@ const noneDiv = document.getElementsByClassName('none')[0]
 const boxEdit = document.getElementsByClassName('box-edit')[0]
 const inp = document.getElementsByClassName('inp')[0]
 
-function editar() {
-    noneDiv.style.display = 'none'
-    boxEdit.style.display = 'flex'
-    inp.placeholder = `${curso[1]} | digite aqui o novo nome do curso`
-}
-function cancel() {
-    noneDiv.style.display = 'block'
-    boxEdit.style.display = 'none'
-    inp.value = ''
-}
 
-function perguntar() {
-    const resposta = confirm(`Deseja continuar?\n*Se continuar tudo relacionando ao curso '${curso[1]}' não será mais listado!`);
-
-    if (resposta) {
-        fetch(`/deletando-curso/${curso[0]}`)
-            .then(res => res.json())
-            .then(data => {
-                window.location.href = data.redirect_url;
-            });
-    }
-}
 
 const modal = document.getElementsByClassName('modal')
 const boxModal = document.getElementsByClassName('modal-box')[0]
@@ -45,30 +23,33 @@ function abrirModal(id = 1) {
         <div style="flex: 3;">
             <h3>Aluno(a): ${auth[2][1]}</h3>
             <div style="padding: 10px 20px;">
-                <p>Atividade ➜ ${auth[3]}</p>
-                <p>Curso: ${curso[1]}</p>
+                <p style="${autoridade==2?'display: none;':''}">Atividade ➜ ${auth[3]}</p>
+                <p style="${autoridade==2?'display: none;':''}">Curso: ${auth[9][1]}</p>
                 <div class="time-modal">
                     <input type="date" class="inp-text" value="${auth[4]}" readonly>
                     <input type="time" class="inp-text" value="${auth[5]}" readonly>
                 </div>
-                <p>• Motivo: ${auth[6]}</p>
+                <p style="${autoridade==2?'display: none;':''}">• Motivo: ${auth[6]}</p>
                 ${auth[7].trim() ? `
-                <div class="obs">
+                <div class="obs" style="${autoridade==2?'display: none;':''}">
                     <p><b>Observação:</b></p>
                     <p>${auth[7]}</p>
                 </div>
                     `: ''}
             </div>
-            <h3>Docente: ${auth[8]}</h3>
+            <h3 style="${autoridade==2?'display: none;':''}">Docente: ${auth[8]}</h3>
         </div>
+        <p style="color:green;font-weight:bold;border:2px solid rgb(150,255,150);padding:3px" id="resp-box"></p>
     `
     let status = auth_alunos_status.find(u => u[1] === auth[0]);
-    if (status[5] && status[5] != '1') {
+    document.getElementById('resp-box').textContent = status[5]?status[5] == 1?"autorizado pelo responsável":"responsável notificado":""
+    document.getElementById('resp-box').style.display = status[5]? 'block':'none'
+    if(status[5] && String(status[5]).length == 7){
         modal1.style.display = 'none'
         modal2.style.display = 'block'
         modal[1].classList.add('abrir')
         modal[1].classList.remove('fechar')
-    } else {
+    }else{
         modal2.style.display = 'none'
         modal1.style.display = 'block'
         modal[0].classList.add('abrir')
@@ -79,7 +60,7 @@ function abrirModal(id = 1) {
     document.getElementsByClassName("visto")[0].innerHTML = `
         <p>marcar como ${autoridade == 2 ? 'visto' : 'aprovado'}?</p>
         <input type="checkbox" id="checkboxInput" ${status[2] === 2 && autoridade == 2 ? 'checked' : ''}>
-        <label for="checkboxInput" class="toggleSwitch" onclick="visto(${status[0]},${autoridade})"></label>
+        <label for="checkboxInput" class="toggleSwitch" onclick="visto(${status[0]},${auth[9][0]})"></label>
     `
     if (status[4] && autoridade == 3 && status[7]) {
         const dataISO = status[7].replace(" ", "T");
@@ -93,9 +74,8 @@ function abrirModal(id = 1) {
         const hora = String(data.getHours()).padStart(2, '0');
         const minutos = String(data.getMinutes()).padStart(2, '0');
 
-        document.getElementsByClassName("visto")[0].innerHTML = `<p>Aprovado pelo coordenador(a) "${status[4]}", em ${dia}/${mes}/${ano} às ${hora}:${minutos}</p>`
+        document.getElementsByClassName("visto")[0].innerHTML = `<p>Aprovado pelo coordenador(a) "${status[4]}", em ${dia}/${mes}/${ano} às ${hora}:${minutos}  </p>`
     }
-
 }
 function fecharModal() {
     modal[0].classList.remove('abrir')
@@ -105,10 +85,22 @@ function fecharModal() {
     boxModal.classList.add('fechar2')
 }
 
+if(id_modal){
+    abrirModal(parseInt(id_modal))
+}
+
 const container = document.getElementsByClassName('container')[0]
 
 function printar(lista) {
     container.innerHTML = ''
+
+    if(autoridade==2){
+        auth_alunos_status.forEach(e=>{
+            if(e[2]==5){
+                lista = lista.filter(i=>i[0]!=e[1])
+            }
+        }) 
+    }
 
     lista.slice().reverse().forEach(e => {
         let status = auth_alunos_status.find(u => u[1] === e[0]);
@@ -159,7 +151,6 @@ function printar(lista) {
         const min = String(data.getMinutes()).padStart(2, '0');
         genda = `, em ${dia}/${mes}/${ano} às ${hora}:${min}`
         }
-
         container.innerHTML += `
         <div class="item" onclick="abrirModal(${e[0]})">
             <div class="item-content" style="border: none">
@@ -170,7 +161,7 @@ function printar(lista) {
             </div>
             <div class="item-info">
             <p style='color:${cor}'>${msg} - (${status[3] ? status[3] : '...'})${genda}</p>
-            <p style='color:#444'>${status[4] && status[2] != 5 ? 'aprovado pela coordenação' : ''}</p>
+            <p style='color:#444' id='none-text'>${status[4] && status[2] != 5  ? 'aprovado pela coordenação': ''}</p>
             </div>
         </div>
     `
@@ -181,15 +172,16 @@ printar(auth_alunos)
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-async function visto(id) {
+async function visto(id,id_curso) {
     const checkbox = document.querySelector('#checkboxInput')
     let ativo = 3
     if (!checkbox.checked) {
         ativo = 2
     }
+
     await delay(200)
     try {
-        const res = await fetch(`/visto/${curso[0]}/${id}/${ativo}`, { method: 'POST' });
+        const res = await fetch(`/visto/0/${id}/${ativo}`, { method: 'POST' });
         const data = await res.json();
         window.location.href = data.redirect_url;
     } catch (error) {
@@ -218,17 +210,17 @@ opc.forEach(i => i.addEventListener('click', () => {
     let ids = novalista.flatMap(i => i[1].map(e => e[1]))
 
     let resultado = auth_alunos.filter(item => ids.includes(item[0]));
-
-    if (resultado.length) {
-        printar(resultado)
-    } else {
-        printar(auth_alunos)
+    
+    if(resultado.length){
+    printar(resultado)
+    }else{
+    printar(auth_alunos)
     }
 }))
 
-async function limpar() {
+async function limpar(id) {
     try {
-        const res = await fetch(`/limpar/${curso[0]}`, { method: 'POST' });
+        const res = await fetch(`/limpar`, { method: 'POST' });
         const data = await res.json();
         window.location.href = data.redirect_url;
     } catch (error) {

@@ -4,18 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>registro do curso</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>registros</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registro.css') }}">
 </head>
 
 <body>
     <header>
         <div class="title">
-            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px">
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
         </div>
-        <a class="nav" href="/cursos" id="btn-menu"><img src="{{ url_for('static', filename='img/voltar.svg') }}"
-                width="40px" alt="voltar"></a>
+        {% if not user[4] > 2 %}
+        <a class="nav" href="/" id="btn-menu" style="color: aliceblue;font-weight: bold;">SAIR</a>
+        {% else %}
+        <div>
+            <a href="/auth" id="btn-menu"><img src="../static/img/home.svg" width="40px" alt="voltar"></a>
+        </div>
+        {% endif %}
     </header>
     <div class="modal-box">
         <div class="modal none-primary">
@@ -29,7 +34,9 @@
                 </div>
             </div>
             <div class="box-main">
+
                 <div class="info-modal"></div>
+
                 <div class="img-modal">
                     <img src="../static/img/user.svg" alt="">
                     <img style="position: absolute;" id="imagePreview" src="../static/img/user.svg" alt="">
@@ -39,7 +46,7 @@
             <div class="visto"></div>
             {% endif %}
         </div>
-        <div class="modal none-secondary">
+        <div class="modal none-secondary modal-cod">
             <div class="box-head">
                 <div style="text-align: center;flex: 3;text-align: center;color:#460739">
                     <h3 style="margin: 5px 0;">Comunicado ao responsavel</h1>
@@ -48,7 +55,7 @@
                     <img src="{{ url_for('static', filename='img/cancel.svg') }}" onclick="fecharModal()" width="35px"
                         alt="x">
                 </div>
-            </div>
+            </div><br>
             <div class="box-main" style="flex-direction: column;">
                 <p style="padding: 5px;border-left: 3px solid blue;border-radius: 3px;background-color: aliceblue;">
                     Um número de 7 carácteres foi enviado para o responsavel do aluno. Para continuar, insira-o no campo
@@ -56,10 +63,10 @@
                 </p><br>
                 <p>Obs: peça ao aluno ou para coordenação que se comunique com o responsavel para adquirir o código.</p><br>
                 <form action="/verificacao" method="post" style="display: flex;flex-direction: column;">
-                    <input type="hidden" name="id" value="{{lista[0]}}">
+                    <input type="hidden" name="id" value="0">
                     <input type="hidden" name="id_status" id="id-status">
                     <input type="number" class="inp2" placeholder="Insira o código aqui" name="cod" maxlength="7" minlength="7" required>
-                    <div style="display: flex;justify-content: center;align-items: center;padding: 10px;">
+                    <br><div style="display: flex;justify-content: center;align-items: center;padding: 10px;">
                     <button class="btn-padrao" type="submit">
                         <span class="shadow"></span>
                         <span class="edge"></span>
@@ -71,29 +78,7 @@
             </div>
         </div>
     </div>
-    <main>
-        <br>
-        <div class="config">
-            {% if user[4] > 1 %}
-            <img src="{{ url_for('static', filename='img/settings.svg') }}" id="open-config" width="30px" alt="">
-            <div class="box-config">
-                <img onclick="editar()" src="{{ url_for('static', filename='img/edit.svg') }}" width="30px" alt=""
-                    id="edit">
-                <button onclick="perguntar()"><img src="{{ url_for('static', filename='img/delete.svg') }}" width="30px"
-                        alt=""></button>
-            </div>
-            {% endif %}
-            <div class="none" style="display: flex;flex: 3;justify-content: center;align-items: center;">
-                <h2 style="margin-left: 10px;flex: 3;">{{lista[1]}}</h2>
-            </div>
-            <div class="box-edit">
-                <form action="/registros/{{lista[0]}}" method="post" style="display: flex;">
-                    <input type="text" class="inp" placeholder="" name="nome" required>
-                    <button type="submit" id="save">+</button>
-                </form>
-                <button onclick="cancel()" id="cancel">Cancelar</button>
-            </div>
-        </div><br>
+    <main><br>
         <div class="box-btn">
             <div class="customCheckBoxHolder" style="flex: 1;">
                 <img src="../static/img/filter.svg" width="30px" alt="">
@@ -117,16 +102,18 @@
                         <div class="inner">Confirmado</div>
                     </div>
                 </label>
-
+                {% if user[4] > 2 %}
                 <input class="customCheckBoxInput" value="5" id="cCB4" type="checkbox">
                 <label class="customCheckBoxWrapper" for="cCB4">
                     <div class="customCheckBox">
                         <div class="inner">Em espera do responsável</div>
                     </div>
                 </label>
+                {% endif %}
 
             </div>
-            {% if user[4] > 1 %}
+            {% if user[4] > 2 %}
+            
             <button class="button" type="button" onclick="limpar()">
                 <span class="button__text">Limpar lista?</span>
                 <span class="button__icon"><svg class="svg" height="512" viewBox="0 0 512 512" width="512"
@@ -152,16 +139,20 @@
         </div>
         <div class="container"></div>
     </main>
+    {% if user[4] == 2 %}
+    <aside>
+    </aside>
+    {% endif %}
     <footer>
         <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>
     </footer>
     <script>
-        const data = JSON.parse('{{ curso | safe }}')
         const data_auth = JSON.parse('{{ auth_alunos | safe }}')
         const data_status = JSON.parse('{{ data_status | safe }}')
         const autoridade = '{{user[4]}}'
+        const id_modal = '{{id_modal}}'
     </script>
-    <script src="{{ url_for('static', filename='script/registro.js') }}"></script>
+    <script src="{{ url_for('static', filename='script/registerAll.js') }}"></script>
 </body>
 
 </html>
