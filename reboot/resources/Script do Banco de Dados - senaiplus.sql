@@ -9,7 +9,7 @@ CREATE TABLE if NOT EXISTS funcionarios (
 	nome VARCHAR(255),
 	nif INT(7),
 	senha VARCHAR(255),
-	autoridade INT (1) DEFAULT 1,
+	autoridade INT (1) DEFAULT 1, -- 3_coordenador; 2_vigia; 1_professor
 	cursos_fixados VARCHAR(255)DEFAULT '[]',
 	ativo INT(11) NOT NULL DEFAULT 1
 );
@@ -35,13 +35,16 @@ DROP TABLE if EXISTS status_auth;
 CREATE TABLE if NOT EXISTS status_auth (
 	id INT(11) NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY(id),
-	id_auth INT(11),
-	cenario INT(1) DEFAULT 1,
-	visto INT (11),
-	aprovado INT(11),
-	cod INT(11),
-	at_visto TIMESTAMP NULL,
-	at_aprovado TIMESTAMP NULL,
+	id_auth INT(11), -- autorização
+	cenario INT(1) DEFAULT 1, -- em andamento, pendente, concluido
+	visto INT (11), -- id do guarita ou professor
+	aprovado INT(11), -- id do coordenador(a)
+	cod INT(7) DEFAULT 0, -- código de validacao
+	at_alert_resp TIMESTAMP NULL, -- horário-notificado-responsável
+	at_aprovado_resp TIMESTAMP NULL, -- horário-aprovado-responsável
+	at_visto TIMESTAMP NULL, -- horário do visto
+	at_aprovado TIMESTAMP NULL, -- horário da aprovação
+	at_docente TIMESTAMP NULL, -- hórario aprovado pelo docente
 	ativo INT(11) NOT NULL DEFAULT 1
 );
 
@@ -66,6 +69,6 @@ CREATE TABLE if NOT EXISTS cursos (
 	PRIMARY KEY(id),
 	nome VARCHAR(255),
 	notification INT(11)DEFAULT 0,
-	cenarios VARCHAR(255)DEFAULT '[0,0,0,0,0]',
+	cenarios VARCHAR(255)DEFAULT '[0,0,0]',
 	ativo INT(11) NOT NULL DEFAULT 1
 );

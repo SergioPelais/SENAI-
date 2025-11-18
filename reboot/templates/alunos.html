@@ -15,7 +15,7 @@
             <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px">
         </div>
         <div>
-            <a href="/auth" id="btn-menu"><img src="../static/img/home.svg" width="40px" alt="voltar"></a>
+            <a href="/auth?menu=1" id="btn-menu"><img src="../static/img/home.svg" width="40px" alt="voltar"></a>
         </div>
     </header>
 
@@ -44,7 +44,7 @@
                 <input class="inp" type="number" name="cpf" value="{{aluno[2]}}" placeholder="Digite aqui o CPF..." required>
 
                 <label><b>Email do Responsável</b></label>
-                <input class="inp" type="text" name="email" value="{{aluno[3]}}" placeholder="Email do Responsável...">
+                <input class="inp" type="email" name="email" value="{{aluno[3]}}" placeholder="Email do Responsável...">
 
                 <label><b>Telefone do Responsável</b></label>
                 <input class="inp" type="number" name="tell" value="{{aluno[4]}}" placeholder="Telefone do Responsável...">

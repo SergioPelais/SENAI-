@@ -6,12 +6,13 @@ main {
     justify-content: center;
 }
 
-#bem-vindo{
-    animation: ola 2s forwards 2s;
+#bem-vindo {
+    animation: ola 2s forwards 5s;
     color: #eee;
 }
+
 @keyframes ola {
-    100%{
+    100% {
         transform: translateX(50px);
         opacity: 0;
         display: none;
@@ -25,26 +26,16 @@ main {
     padding: 20px;
     border-radius: 10px;
     transition: 1s;
+    background-color: white;
+    display: none;
+    transform: translateX(0);
 }
 
 .formulario {
     color: #460739;
 }
 
-.inp {
-    margin-top: 5px;
-    padding: 10px;
-    width: 100%;
-    color: rgb(0, 0, 0);
-    border-bottom: 2px solid red;
-    outline: none;
-    border-radius: 5px;
-    margin-bottom: 30px;
-    background-color: transparent;
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
-    transition: 0.2s;
-}
-
+.inp,
 .inp-select {
     margin-top: 5px;
     padding: 10px;
@@ -56,12 +47,12 @@ main {
     margin-bottom: 30px;
     background-color: transparent;
     box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+    transition: 0.2s;
 }
 
 .inp:focus {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-    /* font-size: 14px; */
 }
 
 #btnform {
@@ -70,7 +61,7 @@ main {
     opacity: 0.7;
     padding: 5px 20px;
     border-radius: 5px;
-    background-color: #e10069;
+    background-color: #f64444;
     border-bottom: 5px solid #bda9c8;
     border-left: 3px solid #bda9c8;
     border-right: 1px solid #bda9c8;
@@ -79,7 +70,7 @@ main {
 
 #btnform:hover {
     font-size: small;
-    background-color: #d54fef;
+    background-color: #ff0000;
     border-bottom: 1px solid #bda9c8;
     border-left: 1px solid #bda9c8;
     transform: scale(0.99);
@@ -120,8 +111,6 @@ textarea {
 .itemTag:hover {
     background-color: #adadbe;
 }
-
-/*radio*/
 
 .radio-input {
     display: flex;
@@ -167,7 +156,7 @@ textarea {
 }
 
 .radio-input .label:has(input:checked)::before {
-    border-color: #9a50da;
+    border-color: #da5050;
     height: 50px;
 }
 
@@ -229,33 +218,51 @@ textarea {
     display: none;
     opacity: 0;
     transform: translateY(-104%);
+    background-color: transparent;
     box-shadow: none;
-    display: flex;
 }
 
-.menu-perfil{
-    flex: 1;
+.menu-perfil {
+    flex: 1 1 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
 }
-.perfil{
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); 
-    max-width: 80%;
+
+.perfil {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
     width: 100%;
     border-radius: 15px;
     padding: 20px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
-.menu-acesso{
-    flex: 1;
+
+.menu-acesso {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
-.opcao-menu{
+
+.opcao-menu {
     list-style: none;
+    width: 100%;
+}
+
+.opcao-menu li {
+    margin-bottom: 10px;
 }
 
 #sair-login {
     padding: 10px 20px;
-    background-color: #ff4b5c;
+    background-color: red;
     color: white;
     font-size: 1.1em;
     border: none;
@@ -263,7 +270,6 @@ textarea {
     cursor: pointer;
     transition: 0.3s;
     align-self: center;
-    justify-self: center;
     text-decoration: none;
 }
 
@@ -274,8 +280,8 @@ textarea {
 
 #resultados {
     list-style-type: none;
-    overflow-Y: auto;
-    max-height: 50px
+    overflow-y: auto;
+    max-height: 50px;
 }
 
 #resultados li {
@@ -300,42 +306,41 @@ textarea {
     font-size: 5px;
 }
 
-/* From Uiverse.io by SujitAdroja */ 
 .btn {
     width: 100%;
-  color: purple;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 2px solid purple;
-  padding: 10px 20px;
-  font-size: 17px;
-  cursor: pointer;
-  font-weight: bold;
-  background: transparent;
-  position: relative;
-  transition: all 1s;
-  overflow: hidden;
+    color: #f64444;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid #f64444;
+    padding: 10px 20px;
+    font-size: 17px;
+    cursor: pointer;
+    font-weight: bold;
+    background: transparent;
+    position: relative;
+    transition: all 1s;
+    overflow: hidden;
 }
 
 .btn:hover {
-  color: white;
+    color: white;
 }
 
 .btn::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 0%;
-  top: 0;
-  left: -40px;
-  transform: skewX(45deg);
-  background-color: purple;
-  z-index: -1;
-  transition: all 1s;
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    top: 0;
+    left: -40px;
+    transform: skewX(45deg);
+    background-color: #f64444;
+    z-index: -1;
+    transition: all 1s;
 }
 
 .btn:hover::before {
-  width: 160%;
+    width: 160%;
 }
 
 @media only screen and (max-width:768px) {
@@ -343,19 +348,25 @@ textarea {
         gap: 10px;
         grid-template-columns: repeat(2, 1fr);
     }
-    .opcao-menu li{
+
+    .opcao-menu li {
         margin-bottom: 5px;
     }
-    .container{
+
+    .container {
         max-width: 99%;
     }
-    .menu{
+
+    .menu {
         flex-direction: column;
+        align-items: center;
     }
-    .perfil{
-        max-width: 99%;
+    .opcao-menu{width: 340px;}
+
+    .perfil {
+        max-width: 95%;
         width: 100%;
-        padding: 10px;
+        padding: 15px;
     }
 }
 
@@ -364,19 +375,24 @@ textarea {
         gap: 30px;
         grid-template-columns: repeat(3, 1fr);
     }
-    .opcao-menu li{
+    .opcao-menu{width: auto;}
+
+    .opcao-menu li {
         margin-bottom: 15px;
     }
-    .container{
+
+    .container {
         max-width: 80%;
     }
-    .menu{
+
+    .menu {
         flex-direction: row;
+        justify-content: space-around;
     }
-    .perfil{
-        max-width: 90%;
-        width: 100%;
-        padding: 10px;
+
+    .perfil {
+        max-width: 400px;
+        padding: 20px;
     }
 }
 
@@ -385,21 +401,70 @@ textarea {
         gap: 40px;
         grid-template-columns: repeat(4, 1fr);
     }
-    .opcao-menu li{
+
+    .opcao-menu li {
         margin-bottom: 10px;
     }
-    .perfil{
-        max-width: 80%;
-        width: 100%;
-        padding: 20px;
+
+    .perfil {
+        max-width: 400px;
+        padding: 25px;
     }
 }
 
-.alert {
-    background-color: #ffdede;
-    color: #a80000;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0;
+.container-perfil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     text-align: center;
+}
+
+.form_area {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #EDDCD9;
+    height: auto;
+    width: auto;
+    border: 2px solid #264143;
+    border-radius: 20px;
+    box-shadow: 3px 4px 0px 1px #E99F4C;
+}
+
+.title {
+    color: #264143;
+    font-weight: 900;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+.sub_title {
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin: 10px;
+}
+
+.form_style {
+    outline: none;
+    border: 2px solid #264143;
+    box-shadow: 3px 4px 0px 1px #E99F4C;
+    width: 290px;
+    padding: 12px 10px;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.form_style:focus,
+.btn:focus {
+    transform: translateY(4px);
+    box-shadow: 1px 2px 0px 0px #E99F4C;
 }

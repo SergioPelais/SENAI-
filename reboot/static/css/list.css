@@ -1,0 +1,994 @@
+body {
+    background: linear-gradient(to top, rgba(144, 51, 161, 0.2), white);
+}
+
+/* campo de edição do curso */
+
+#inp {
+    outline: none;
+    border-bottom: 3px solid red;
+    border-radius: 3px;
+    width: 100%;
+    padding: 0 5px;
+    font-size: 1.3rem;
+    margin: 0 10px;
+}
+
+.inp2 {
+    padding: 5px;
+    background-color: #eee;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    outline: none;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.edit-curso {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    display: none;
+}
+
+.box-title {
+    padding: 10px;
+    display: flex;
+}
+
+.box-title h2 {
+    margin-left: 10px;
+}
+
+.box-title img {
+    border-radius: 3px;
+    background-color: #ddd;
+    transition: 0.3s;
+}
+
+.box-title img:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    background-color: aliceblue;
+}
+
+.btn-delete {
+    transition: 0.3s;
+    border-radius: 3px;
+}
+
+.btn-delete:hover {
+    background-color: rgb(255, 127, 127);
+}
+
+#save {
+    font-weight: bold;
+    width: 90px;
+    background-color: rgba(204, 252, 132, 0.2);
+    transition: 0.3s;
+    border-right: 2px solid green;
+}
+
+#save:hover {
+    background-color: rgb(204, 252, 132);
+}
+
+.edit-curso #cancel {
+    padding: 0 10px;
+    color: red;
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: transparent;
+    transition: 0.3s;
+}
+
+.edit-curso #cancel:hover {
+    background-color: rgba(255, 140, 140, 0.5);
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* lista das autorizações */
+
+.container {
+    display: grid;
+    grid-template-rows: auto;
+    gap: 10px;
+    padding: 20px;
+}
+
+.item {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    position: relative;
+    background-color: white;
+}
+
+.item h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 250px;
+}
+
+.cenario-item {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.boxPreview {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background-color: #ccc;
+    position: relative;
+    
+}
+
+.imagePreview {
+    min-width: 150px;
+    height: 100%;
+}
+
+.boxInfo {
+    padding: 5px;
+}
+
+.inp-text {
+    background-color: transparent;
+    outline: none;
+    font-size: 1em;
+}
+
+.boxStatus {
+    font-size: 1.5em;
+}
+
+.boxStatus-info {
+    position: absolute;
+    width: 87%;
+    height: 35.9%;
+    right: 35px;
+    bottom: 10px;
+    background-color: rgb(143, 203, 255);
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 5px;
+    display: none;
+    pointer-events: none;
+    z-index: 5px;
+}
+
+/* estilizando o modal */
+.modal-alert-box {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    display: flex;
+    padding: 10px;
+}
+
+.modal-alert {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transform: translatey(50px);
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(150, 150, 150, 0.5));
+    z-index: 9999;
+    display: none;
+    padding: 10px;
+}
+
+.box-modal {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translatey(50px);
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.head-modal {
+    display: flex;
+    background-color: rgb(255, 209, 209);
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 10px;
+}
+
+.head-modal h3 {
+    flex: 3;
+    width: 100%;
+    margin: 10px;
+}
+
+#sair-modal {
+    border-top-right-radius: 10px;
+    height: 50px;
+    border-bottom-left-radius: 20px;
+    padding: 3px;
+    transition: 0.3s;
+    background-color: #fff;
+}
+
+#sair-modal:hover {
+    background-color: rgb(255, 175, 175);
+}
+
+.abrir-modal {
+    display: flex;
+    animation: abrir 0.5s forwards;
+}
+
+.fechar-modal {
+    animation: fechar 0.5s forwards;
+}
+
+.abrir-boxModal {
+    animation: abrir2 0.2s forwards;
+}
+
+.fechar-boxModal {
+    animation: fechar2 0.2s forwards;
+}
+
+@keyframes abrir {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+
+    100% {
+        opacity: 1;
+        display: flex;
+    }
+}
+
+@keyframes fechar {
+    0% {
+        opacity: 1;
+        display: flex;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes abrir2 {
+    0% {
+        transform: translatey(50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translatey(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fechar2 {
+    0% {
+        transform: translatey(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translatey(50px);
+        opacity: 0;
+        display: none;
+    }
+}
+
+
+/* informações do modal */
+.main-modal {
+    min-height: 400px;
+    max-height: 90%;
+    overflow: auto;
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-auth {
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    border-top: 1px solid #555;
+    border-bottom: 1px solid #555;
+    text-align: center;
+}
+
+#obs-auth-modal {
+    background-color: aliceblue;
+    padding: 5px;
+    border-radius: 3px;
+    border-left: 3px solid blue;
+    text-align: left;
+    overflow-y: auto;
+    height: 100px;
+}
+
+.nav-modal {
+    display: flex;
+    background-color: rgb(255, 190, 190);
+    border-bottom-left-radius: 20px;
+    padding: 5px 20px;
+}
+
+.item-nav {
+    transition: 0.1s;
+    padding: 0 5px;
+    box-shadow: 0 0 5px rgba(150, 150, 150, 0.7);
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(61, 61, 61);
+}
+
+.item-nav:hover {
+    background-color: #ccc;
+}
+
+.select {
+    border-bottom: 1px solid #555;
+    border-left: 1px solid #555;
+    background-color: #fff;
+    color: rgb(0, 0, 61);
+}
+
+.none {
+    display: none;
+}
+
+.cod-modal {
+    height: 40px;
+    background-color: rgb(221, 71, 71);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* From Uiverse.io by vinodjangid07 */
+/* To hide the checkbox */
+#checkboxInput {
+    display: none;
+}
+
+.toggleSwitch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 50px;
+    height: 30px;
+    background-color: rgb(82, 82, 82);
+    border-radius: 20px;
+    cursor: pointer;
+    transition-duration: .2s;
+}
+
+.toggleSwitch::after {
+    content: "";
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    left: 5px;
+    background-color: transparent;
+    border-radius: 50%;
+    transition-duration: .2s;
+    box-shadow: 5px 2px 7px rgba(8, 8, 8, 0.26);
+    border: 5px solid white;
+}
+
+#checkboxInput:checked+.toggleSwitch::after {
+    transform: translateX(100%);
+    transition-duration: .2s;
+    background-color: white;
+}
+
+/* Switch background change */
+#checkboxInput:checked+.toggleSwitch {
+    background-color: rgb(148, 118, 255);
+    transition-duration: .2s;
+}
+
+table {
+    width: 90%;
+    max-width: 900px;
+    margin: 25px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho */
+th {
+    background: linear-gradient(135deg, #6a5acd, #836fff);
+    color: white;
+    padding: 14px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Células */
+td {
+    padding: 12px 10px;
+    text-align: center;
+    color: #444;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+/* Cor alternada nas linhas */
+tr:nth-child(even) td {
+    background-color: #f7f7ff;
+}
+
+/* Hover bonito na linha */
+tr:hover td {
+    background-color: #eceaff;
+    cursor: pointer;
+}
+
+/* Borda suave */
+table td:first-child,
+table th:first-child {
+    border-left: none;
+}
+
+table td:last-child,
+table th:last-child {
+    border-right: none;
+}
+
+.info-dt-btn {
+    background-color: rgba(238, 255, 0, 0.8);
+    display: flex;
+    padding: 0 5px;
+    margin: 0 3px;
+    border-radius: 0 10px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 20px;
+}
+
+.info-dt {
+    background-color: rgb(251, 255, 188);
+    display: none;
+    margin: 0 5px;
+    padding: 0 3px;
+    font-weight: normal;
+}
+
+.info-dt-btn:hover .info-dt {
+    display: block;
+}
+
+.info-dt-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resultado-form {
+    width: 100%;
+    max-width: 420px;
+    padding: 18px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    font-family: "Segoe UI", sans-serif;
+    color: #1a1a1a;
+}
+
+/* From Uiverse.io by Yaya12085 */ 
+.radio-input input {
+  display: none;
+}
+
+.radio-input {
+  --container_width: 300px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000000;
+  width: var(--container_width);
+  overflow: hidden;
+  border: 1px solid rgba(53, 52, 52, 0.226);
+}
+
+.radio-input label {
+  width: 100%;
+  padding: 3px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.selection {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: calc(var(--container_width) / 2);
+  z-index: 0;
+  left: 0;
+  top: 0;
+  transition: .15s ease;
+}
+
+.radio-input label:has(input:checked) {
+  color: #fff;
+}
+
+.radio-input label:has(input:checked) ~ .selection {
+  background-color: rgb(11 117 223);
+  display: inline-block;
+}
+
+.radio-input label:nth-child(1):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 0/2));
+}
+
+.radio-input label:nth-child(2):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 1/2));
+}
+
+/* Título principal */
+.tipo-caso {
+    text-align: center;
+    color: #26033e;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 5px;
+}
+
+/* Nome do aluno */
+.aluno {
+    background: #a8ffe2;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-weight: 600;
+}
+
+/* Linhas de informação */
+.info-linha {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #e9e9e9;
+    font-size: 1rem;
+}
+
+/* Inputs de data e hora */
+.data-hora {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding: 10px;
+    border: 2px solid #cfcfcf;
+    border-radius: 8px;
+}
+
+.data-hora input {
+    width: 48%;
+    padding: 6px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    background: #f9f9f9;
+    font-size: 0.95rem;
+}
+
+/* Motivo */
+.motivo {
+    margin-top: 12px;
+    font-size: 1rem;
+}
+
+/* Observação */
+.obs {
+    background: #fff8cc;
+    padding: 8px;
+    border-left: 4px solid #ffcb00;
+    margin-top: 10px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+/* Docente */
+.docente {
+    margin-top: 14px;
+    background: #c6ffec;
+    padding: 7px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* From Uiverse.io by Yaya12085 */
+.box-filter {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #555;
+}
+
+.radio-inputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 350px;
+    font-size: 14px;
+}
+
+.radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.radio-inputs .radio input {
+    display: none;
+}
+
+.radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: .5rem 0;
+    color: rgba(51, 65, 85, 1);
+    transition: all .15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked+.name {
+    background-color: #fff;
+    font-weight: 600;
+}
+
+/*select Month*/
+
+.select-container {
+    display: flex;
+    font-family: "Segoe UI", sans-serif;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.select-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.custom-select {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px 15px 5px 10px;
+    margin: 0 10px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    outline: none;
+}
+
+.custom-select:hover {
+    border-color: #007bff;
+}
+
+.custom-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px #007bff44;
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+/* Ícone da setinha */
+.select-wrapper::after {
+    content: "▼";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 12px;
+    color: #555;
+}
+
+/* lista dos alunos que são forgados */
+.alert-qnt {
+    display: flex;
+    align-items: center;
+    border-radius: 50% 0 0 50%;
+    width: 65px;
+    background-color: #007bff;
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.alert-qnt-box {
+    position: fixed;
+    right: 0;
+    background-color: rgba(219, 165, 255, 0.2);
+    top: 0;
+    bottom: 5px;
+    width: 350px;
+    display: none;
+    opacity: 0;
+    z-index: 101;
+    transform: translateX(110%);
+    box-shadow: 0 0 15px #26033e;
+    padding-top: 60px;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+#sair-maior{
+    position: fixed;
+    z-index: 90;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+.fechar-alert-btn {
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 189, 154);
+    border-radius: 0 20px 20px 0;
+    width: 30px;
+    transition: 0.2s;
+    color: #555;
+    cursor: pointer;
+    overflow: hidden;
+}
+#msg-sair{
+    opacity: 0;
+    margin: 0 3px;
+    display: none;
+    transition: 0.1s;
+    padding-right: 5px;
+    border-right: 1px solid white;
+}
+.fechar-alert-btn:hover{
+    background-color: rgb(255, 145, 86);
+    color: red;
+    width: 65px;
+}
+.fechar-alert-btn:hover #msg-sair{
+    opacity: 1;
+    display: block;
+}
+
+.abrir-alert {
+    animation: abrirAlert 0.5s forwards;
+}
+
+.abrir-alert-box {
+    display: block;
+    animation: abrirAlertBox 1s forwards 0.2s;
+}
+.fechar-alert {
+    transform: translateX(110%);
+    animation: fecharAlert 0.6s forwards 0.5s;
+}
+
+.fechar-alert-box {
+    transform: translateX(0);
+    opacity: 1;
+    display: block;
+    animation: fecharAlertBox 1s forwards;
+}
+
+@keyframes abrirAlert {
+    100% {
+        transform: translateX(110%);
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes abrirAlertBox {
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+        display: block;
+    }
+}
+@keyframes fecharAlert {
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+        display: flex;
+    }
+}
+
+@keyframes fecharAlertBox {
+    100% {
+        transform: translateX(110%);
+        opacity: 0;
+        display: none;
+    }
+}
+
+@media only screen and (max-width:768px) {
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+
+    .box-modal {
+        max-width: 99%;
+        overflow-y: auto;
+        max-height: 650px;
+    }
+
+    .alert-qnt-box {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width:768px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .box-modal {
+        max-width: 50%;
+    }
+
+    .alert-qnt-box {
+        width: 350px;
+    }
+}
+
+@media only screen and (min-width:1024px) {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .item:hover .boxStatus-info {
+        display: block;
+    }
+}
+
+.lista-alert {
+    list-style: none; 
+    margin: 5px;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 60vh;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 10px;
+
+    max-width: 400px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+    font-family: "Inter", Arial, sans-serif;
+}
+
+.lista-alert li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 5px;
+    border-bottom: 1px solid #f1f1f1;
+
+    font-size: 15px;
+    color: #333;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.lista-alert li:last-child {
+    border-bottom: none;
+}
+
+.lista-alert li::before {
+    content: "•";
+    color: #4f46e5;
+    font-size: 22px;
+    line-height: 0;
+}
+
+.lista-alert li:hover {
+    color: #4f46e5;
+    transform: translateX(4px);
+    cursor: pointer;
+}

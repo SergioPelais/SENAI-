@@ -6,7 +6,7 @@ def open_connection():
     return mysql.connector.connect(
         host='localhost',
         user='root',
-        password='Dev@561',
+        password='',
         database='SENAIplus',
     )
 

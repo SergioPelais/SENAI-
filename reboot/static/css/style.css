@@ -18,7 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #fffdff;
+    background: linear-gradient(45deg, rgba(255, 40, 40, 0.8), rgba(144, 51, 161, 0.3), white);
 }
 
 header {
@@ -29,7 +29,7 @@ header {
     position: fixed;
     right: 0;
     left: 0;
-    z-index: 100;
+    z-index: 150;
     display: flex;
     align-items: center;
 }
@@ -58,11 +58,16 @@ main {
 }
 
 footer {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: linear-gradient(to left, #d42821, #d42821, #811613);
     color: aliceblue;
-    padding: 3px;
+    padding: 5px;
     width: 100%;
+    height: 35px;
+    position: relative;
+    z-index: 1000;
 }
 
 
@@ -101,10 +106,10 @@ footer {
     height: 100%;
     border-radius: 12px;
     background: linear-gradient(to left,
-            hsl(311, 100%, 16%) 0%,
-            hsl(317, 100%, 32%) 8%,
-            hsl(315, 100%, 32%) 92%,
-            hsl(309, 100%, 16%) 100%);
+            hsl(0, 100%, 16%) 0%,
+            hsl(0, 100%, 32%) 8%,
+            hsl(0, 100%, 32%) 92%,
+            hsl(0, 100%, 16%) 100%);
 }
 
 .front {
@@ -114,7 +119,7 @@ footer {
     border-radius: 12px;
     font-size: 1rem;
     color: white;
-    background: hsl(327, 100%, 47%);
+    background: hsl(0, 100%, 50%);
     will-change: transform;
     transform: translateY(-4px);
     transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
@@ -146,4 +151,132 @@ footer {
 
 .btn-padrao:focus:not(:focus-visible) {
     outline: none;
+}
+
+.load {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, rgba(255, 207, 207,0.5), rgba(255,255,255,0.5));
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: rgb(54, 54, 54);
+    display: none;
+    opacity: 0;
+    animation: loading 0.5s forwards;
+}
+
+.spinner {
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(255, 0, 0, 0.3);
+    border-top-color: red;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    margin-top: 20px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    animation: fade 1.5s infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fade {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+@keyframes loading {
+    100% {
+        opacity: 1;
+    }
+}
+
+.alert {
+    background-color: #ff32dd;
+    z-index: 9999;
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+    color: #5e0000;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    text-align: center;
+    animation: alert 1s forwards 3s;
+    border-left: 3px solid #9c32ff;
+    border-bottom: 3.5px solid #9c32ff;
+}
+@keyframes alert {
+    100% {
+        transform: translateX(110%);
+        display: none;
+    }
+}
+
+#btnTopo {
+  position: fixed;
+  top: 0;
+  right: 5px;
+  padding: 0 5px;
+  font-size: 18px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  opacity: 0;
+  z-index: 100;
+  transition: 0.2s;
+}
+
+.abrirTopo{
+    animation: abrirBtn 1s forwards;
+}
+.fecharTopo{
+    animation: fecharBtn 1s forwards;
+}
+@keyframes abrirBtn {
+    100% {
+        transform: translateY(60px);
+        display: flex;
+        opacity: 0.8;
+    }
+}
+@keyframes fecharBtn {
+    0% {
+        transform: translateY(60px);
+        opacity: 0.8;
+        display: flex;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 0;
+        display: none;
+    }
+}
+
+#btnTopo:hover {
+  background-color: #8e8e8e;
 }

@@ -12,14 +12,14 @@
 <body>
     <header>
         <div class="title">
-            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px" >
+            <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px">
 
         </div>
     </header>
     <main>
         <div class="boxImg none flex"></div>
         <div class="boxImg">
-            <div class="boxForm" >
+            <div class="boxForm">
                 <div style="text-align: center;color: #460739;margin: 20px 0;">
                     <h1>Login</h1>
                 </div>
@@ -27,8 +27,23 @@
                     <label><b>NIF</b></label><br>
                     <input type="number" class="inp" placeholder="Digite seu NIF" name="nif" required>
                     <label><b>Senha</b></label><br>
-                    <input type="password" class="inp" style="margin-bottom: 5px;" placeholder="Digite sua senha" name="senha" required>
-                    <p style="color: red;">{{alert}}</p>
+                    <input type="password" class="inp" style="margin-bottom: 5px;" placeholder="Digite sua senha"
+                        name="senha" required>
+
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for msg, tipo in messages %}
+                    {% if tipo=='login' %}
+                    <div style="color:red;">{{ msg }}</div><br>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    <label>
+                        <input type="checkbox" name="lembrar"> Lembrar-me
+                    </label>
+
                     <div style="text-align: center;">
                         <button type="submit" style="margin: 20px 0;" id="btnform">Acessar</button>
                     </div>
@@ -39,9 +54,6 @@
     <footer>
         <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>
     </footer>
-    <script>
-        const printMsg = '{{alert}}'
-    </script>
 </body>
 
 </html>

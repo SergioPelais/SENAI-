@@ -1,0 +1,36 @@
+{"usuario": "Fabio Negrelli", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:02:02.389701"}
+{"usuario": "Helder Louren\u00e7o", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:02:06.295027"}
+{"usuario": "Helder Louren\u00e7o", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:02:19.353925"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:02:23.874816"}
+{"usuario": "Fabio Negrelli", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:02:54.016060"}
+{"usuario": "guarita_1", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:03:02.080136"}
+{"usuario": "guarita_1", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:03:08.640097"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:03:13.026957"}
+{"usuario": "guarita_1", "acao": "login_sucesso", "ip": "192.168.1.115", "timestamp": "2025-11-15T10:08:15.531831"}
+{"usuario": "guarita_1", "acao": "logout", "ip": "192.168.1.115", "timestamp": "2025-11-15T10:09:21.878883"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "192.168.1.115", "timestamp": "2025-11-15T10:09:29.272802"}
+{"usuario": "Fabio Negrelli", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:47:47.930618"}
+{"usuario": "guarita_1", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:47:52.383002"}
+{"usuario": "guarita_1", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:52:38.488284"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T10:52:48.808578"}
+{"usuario": "Fabio Negrelli", "acao": "logout", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:10:53.815883"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:11:20.060250"}
+{"usuario": "Fabio Negrelli", "acao": "logout", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:18:09.737150"}
+{"usuario": "Helder Louren\u00e7o", "acao": "login_sucesso", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:18:18.242489"}
+{"usuario": "Helder Louren\u00e7o", "acao": "logout", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:20:21.429659"}
+{"usuario": "guarita_1", "acao": "login_sucesso", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:20:30.852794"}
+{"usuario": "guarita_1", "acao": "logout", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:21:09.962865"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:21:18.665670"}
+{"usuario": "Fabio Negrelli", "acao": "logout", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:22:07.616649"}
+{"usuario": "Helder Louren\u00e7o", "acao": "login_sucesso", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:22:18.476367"}
+{"usuario": "Helder Louren\u00e7o", "acao": "logout", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:23:01.062872"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "192.168.1.115", "timestamp": "2025-11-15T13:23:08.952887"}
+{"usuario": "guarita_1", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T13:34:32.568391"}
+{"usuario": "guarita_1", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T13:50:40.899132"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T13:50:47.833456"}
+{"usuario": "Fabio Negrelli", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T17:27:03.311043"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T17:28:38.245054"}
+{"usuario": "Fabio Negrelli", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T18:15:48.413568"}
+{"usuario": "guarita_1", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T18:15:53.311686"}
+{"usuario": "guarita_1", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-15T18:15:57.826726"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-15T18:16:01.712927"}

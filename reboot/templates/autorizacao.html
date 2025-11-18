@@ -4,23 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autorização entrada/saída</title>
+    <title>Autorização</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <link rel="stylesheet" type="text/css" href="../static/css/auth.css">
 </head>
 
-<body>
+<body class="fundo">
     <header>
-        <div class="title" style="flex: 3;">
+        <div style="flex: 3;">
             <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px">
         </div>
-        <p id="bem-vindo"><b>{{hello if hello != 'Aluno não encontrado' else ''}}</b></p>
+        <p id="bem-vindo"><b>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for msg, tipo in messages %}
+                {% if tipo=='hello' %}
+                {{ msg }}
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </b></p>
+
         <div>
             <button onclick="teste()" id="btn-menu"><img src="../static/img/menu.svg" width="40px" alt="Menu"></button>
         </div>
 
     </header>
-
+    <div class="load">
+        <div class="spinner"></div>
+        <div class="loading-text">Aguarde só um momento...</div>
+    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for msg, tipo in messages %}
+    {% if tipo=='email' %}
+    {% if msg=='Responsável notificado com sucesso!' %}
+    <p class="alert" style="background: rgb(95, 255, 95);">
+    {% else %}
+    <p class="alert" style="background: rgb(255, 242, 95);">
+    {% endif %}
+        {{ msg }}
+    </p>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     <main>
         <div class="container">
             <div style="text-align: center;color: #460739;">
@@ -48,9 +77,15 @@
                 <input class="inp" style="margin-bottom: 10px;" placeholder="Digite aqui o nome do aluno..." required>
 
                 <ul id="resultados">
-                {% if hello == 'Aluno não encontrado' %}
-                    <li style="color: red;">{{hello}}</li>
-                {% endif %}
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for msg, tipo in messages %}
+                    {% if tipo=='aluno' %}
+                    <li style="color: red;">{{msg}}</li>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
                 </ul><br>
 
                 <label for="action"><b>Atividade:</b></label>
@@ -78,10 +113,9 @@
                 <div class="box-email" style="display: none;">
 
                     <div class="info">
-                        <h3>O aluno selecionado ainda é de menor.</h3>
                         <p id="msg-caso"></p>
                         <div id="check-box">
-                            <br><input type="checkbox" name="receber_codigo" value="sim" checked>
+                            <br><input type="checkbox" onclick="verificar()" name="receber_codigo" id="chek" value="sim" checked>
                             <i>Solicitar código de
                                 validação</i>
                         </div>
@@ -102,7 +136,7 @@
                 </div>
 
                 <div style="text-align: center;">
-                    <button class="btn-padrao" type="submit">
+                    <button class="btn-padrao" type="submit" onclick="load(document.getElementsByClassName('inp')[0])">
                         <span class="shadow"></span>
                         <span class="edge"></span>
                         <span class="front text" style="font-size: 1.1rem;"> Enviar
@@ -114,37 +148,28 @@
 
         <div class="container menu" style="display: none;">
             <div class="menu-perfil">
-                <div style="text-align: center;">
-                    <h2>Perfil</h2>
-                </div>
-                <div class="perfil">
 
-                    <h2>{{user[3]}}</h2>
-                    <p>
-                        {% if user[4] == 1 %}
-                        Professor
-                        {% elif user[4] == 3 %}
-                        Coordenador
-                        {% endif %}
-                    </p>
-                    <h3>NIF: {{user[1]}}</h3>
+                <div class="container-perfil">
+                    <div class="form_area">
+                        <p>{{'Professor(a)' if user[4] == 1 else 'Coordenador(a)'}}</p>
+                        <p class="title">Olá {{user[3]}}</p>
 
-                    <div class="password-container">
-                        <label for="senha">Senha:</label>
-                        <input type="password" id="senha" value="{{user[2]}}" name="senha">
-                        <span class="icone" id="icone" onclick="toggleSenha()"><img
-                                src="https://img.icons8.com/?size=100&id=24456&format=png&color=000000" width="20px"
-                                alt=""></span>
-                    </div>
-                    <br>
-                    <div style="text-align: center;">
-                        <a href="/">
-                            <button id="sair-login">SAIR</button>
-                        </a>
+                        <form action="">
+                            <div class="form_group">
+                                <label class="sub_title" for="nif">NIF</label>
+                                <input placeholder="Enter your nif" id="nif" class="form_style" value="{{user[1]}}"
+                                    type="number" readonly>
+                            </div>
+                        </form><br>
+                        <div style="text-align: center;">
+                            <a href="/logout">
+                                <button id="sair-login">SAIR</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            
             <div class="menu-acesso">
                 <div style="text-align: center; margin-top: 20px;">
                     <h2>Acessos</h2>
@@ -162,8 +187,10 @@
     <footer>
         <p>Escola SENAI "Luíz Massa" CPF 7.91 &COPY; Desenvolvido em 2025</p>
     </footer>
+    <script src="../static/script/script.js"></script>
     <script>
         const bd = JSON.parse('{{ bd | safe }}');
+        const menu = ['{{menu}}','{% with messages = get_flashed_messages() %}{% if messages %}{% for msg, tipo in messages %}{% if tipo=="hello" %}1{% endif %}{% endfor %}{% endif %}{% endwith %}']
 
         function toggleSenha() {
             const senhaInput = document.getElementById("senha");

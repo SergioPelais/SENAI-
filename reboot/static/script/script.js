@@ -1,47 +1,28 @@
-let users = [];
-
-
-
-
-function createUser(user) {
-  users.push(user);
-  return user;
-}
-
-
-
-
-function getUserById(id) {
-  return users.find(u => u.id === id);
-}
-
-
-
-
-function updateUser(id, newData) {
-  const index = users.findIndex(u => u.id === id);
-  if (index === -1) return null;
-  users[index] = { ...users[index], ...newData };
-  return users[index];
-}
-
-
-
-
-function deleteUser(id) {
-  const index = users.findIndex(u => u.id === id);
-  if (index === -1) return false;
-  users.splice(index, 1);
-  return true;
-}
-
-
-
-
-function resetUsers() {
-  users = [];
-  if(!users.length){
-    return true
+function load(cod) {
+  if (cod.value.trim()) {
+    document.getElementsByClassName('load')[0].style.display = 'flex'
   }
-  return false
 }
+
+const btnTopo = document.getElementById("btnTopo");
+
+let ativo = false
+// Mostrar o botão ao descer 200px
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 150) {
+    btnTopo.classList.remove('fecharTopo')
+    btnTopo.classList.add('abrirTopo')
+    ativo = true
+  } else if (ativo) {
+    btnTopo.classList.add('fecharTopo')
+    btnTopo.classList.remove('abrirTopo')
+  } 
+});
+
+// Rolar suavemente até o topo
+btnTopo.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});

@@ -1,3 +1,19 @@
+body {
+    max-height: 100vh;
+}
+
+main {
+    display: flex;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.main {
+    flex: 3;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
 .config {
     display: flex;
     width: 100%;
@@ -451,6 +467,7 @@ form {
     margin: 5px;
     display: flex;
     flex-direction: column;
+    padding: 5px;
 }
 
 .customCheckBox {
@@ -595,12 +612,165 @@ form {
     }
 }
 
+
 aside {
-    position: fixed;
     overflow-y: auto;
-    top: 50px;
-    right: 0;
-    bottom: 4.3vh;
+    max-height: 100%;
     width: 300px;
-    background-color: #cacaca;
+    background-color: #ececec;
+    box-shadow: -3px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* From Uiverse.io by marcel_4026 */
+.input-wrapper {
+    height: 20px;
+    border-radius: 20px;
+    padding: 5px;
+    box-sizing: content-box;
+    display: flex;
+    align-items: center;
+    background-color: #685f5d;
+}
+
+.input {
+    max-width: 170px;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding-left: 15px;
+    background-color: #685f5d;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #292524 inset;
+    -webkit-text-fill-color: #ffffff;
+}
+
+.input::placeholder {
+    color: #fff;
+    opacity: 1;
+}
+
+.Subscribe-btn {
+    height: 100%;
+    width: 30px;
+    border: none;
+    border-radius: 15px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    background-color: #ffffff;
+    font-weight: 500;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.Subscribe-btn:hover {
+    font-size: 77%;
+    transition: 300ms;
+}
+
+@keyframes jello-vertical {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    40% {
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    50% {
+        transform: scale3d(0.85, 1.15, 1);
+    }
+
+    65% {
+        transform: scale3d(1.05, 0.95, 1);
+    }
+
+    75% {
+        transform: scale3d(0.95, 1.05, 1);
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.Subscribe-btn:active {
+    transform: scale(0.9);
+}
+
+/* From Uiverse.io by adamgiebl */
+.cyberpunk-checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d03030;
+    border-radius: 5px;
+    background-color: transparent;
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.cyberpunk-checkbox:before {
+    content: "";
+    background-color: #d03030;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+.cyberpunk-checkbox:checked:before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.cyberpunk-checkbox-label {
+    font-size: 18px;
+    padding: 3px;
+    color: #333;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+    border-bottom: 2px solid #555;
+    background-color: #fff;
+}
+
+.cyberpunk-checkbox-label:hover {
+    background-color: #ccc;
+}
+
+.lista {
+    padding: 5px;
+}
+
+.limpar-lista {
+    margin-right: 5px;
+    transition: 0.3s;
+    background-color: rgba(150, 150, 150, 0.5);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.limpar-lista:hover {
+    background-color: rgba(242, 242, 242, 0.5);
+    border-radius: 10px;
 }

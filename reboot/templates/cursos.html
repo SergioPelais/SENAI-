@@ -16,7 +16,7 @@
             <img src="{{ url_for('static', filename='img/senai.svg')}}" alt="Logo do SENAI" width="150px">
         </div>
         <div>
-            <a href="/auth" id="btn-menu"><img src="../static/img/home.svg" width="40px" alt="voltar"></a>
+            <a href="/auth?menu=1" id="btn-menu"><img src="../static/img/home.svg" width="40px" alt="voltar"></a>
         </div>
     </header>
     <main>
@@ -41,7 +41,7 @@
                         <h3 style="flex: 3;">{{item[1]}}</h3>
                         <!-- From Uiverse.io by vinodjangid07 -->
                         <label class="container">
-                            <input type="checkbox" class="checkbox" id="checkbox-id-{{item[0]}}" value="{{item[0]}}"/>
+                            <input type="checkbox" class="checkbox" id="checkbox-id-{{item[0]}}" value="{{item[0]}}" />
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 75 100" class="pin">
                                 <line stroke-width="12" stroke="black" y2="100" x2="37" y1="64" x1="37"></line>
                                 <path stroke-width="10" stroke="black"
@@ -52,16 +52,23 @@
                     </div>
                     <div class="main-item none">
                         <div style="flex: 3;">
-                            <p>{{'Em espera ➤ '~item[3][0] if item[3][0] != 0 else ''}}</p>
-                            <p>{{'confirmado ➤ '~item[3][1] if item[3][1] != 0 else ''}}</p>
-                            <p>{{'pendente ➤ '~item[3][3] if item[3][3] != 0 else ''}}</p>
-                            <p>{{'negado ➤ '~item[3][2] if item[3][2] != 0 else ''}}</p>
-                            <p>{{'em espera do responsável ➤ '~item[3][4] if item[3][4] != 0 else ''}}</p>
+                            <table>
+                                <tr>
+                                    <th>Em espera</th>
+                                    <th>Pendente</th>
+                                    <th>Concluído</th>
+                                </tr>
+                                <tr>
+                                    <td>{{item[3][0]}}</td>
+                                    <td>{{item[3][2]}}</td>
+                                    <td>{{item[3][1]}}</td>
+                                </tr>
+                            </table>
                         </div>
                         <div class="notification none">
                             <div style="display: flex;">
                                 {% if item[2] > 0 %}
-                                <img src="../static/img/notifications.svg" width="30px" alt="notification">
+                                <span style="font-size: 25px;">🔔</span>
                                 <p>{{item[2]}}</p>
                                 {% endif %}
                             </div>

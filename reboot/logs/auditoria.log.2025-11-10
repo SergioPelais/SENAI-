@@ -1,0 +1,13 @@
+{"usuario": "fabio", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-10T10:00:22.220532"}
+{"usuario": "fabio", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:06:31.203685"}
+{"usuario": "helder", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:06:40.832773"}
+{"usuario": "helder", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:12:27.650761"}
+{"usuario": "fabio", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:12:36.487021"}
+{"usuario": "fabio", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:43:50.425740"}
+{"usuario": "guarita_1", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:44:00.455301"}
+{"usuario": "guarita_1", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:44:21.587595"}
+{"usuario": "fabio", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:44:27.695272"}
+{"usuario": "fabio", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:44:54.316159"}
+{"usuario": "helder", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:45:00.169847"}
+{"usuario": "helder", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:45:30.698999"}
+{"usuario": "fabio", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-10T16:45:35.366268"}

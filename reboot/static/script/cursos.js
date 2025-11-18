@@ -50,8 +50,6 @@ async function printar() {
         }
     })
     }
-    console.log(lista)
-
 
     lista.forEach(e => {
         marke.innerHTML += `
@@ -71,16 +69,23 @@ async function printar() {
                     </div>
                     <div class="main-item">
                         <div style="flex: 3;">
-                            <p>${e[3][0] != 0 ? 'em espera ➤ ' + e[3][0] : ''}</p>
-                            <p>${e[3][1] != 0 ? 'confirmado ➤ ' + e[3][1] : ''}</p>
-                            <p>${e[3][2] != 0 ? 'pendente ➤ ' + e[3][2] : ''}</p>
-                            <p>${e[3][3] != 0 ? 'negado ➤ ' + e[3][3] : ''}</p>
-                            <p>${e[3][4] != 0 ? 'em espera do responsável ➤ ' + e[3][4] : ''}</p>
+                            <table>
+                                <tr>
+                                    <th>Em espera</th>
+                                    <th>Pendente</th>
+                                    <th>Concluído</th>
+                                </tr>
+                                <tr>
+                                    <td>${e[3][0]}</td>
+                                    <td>${e[3][2]}</td>
+                                    <td>${e[3][1]}</td>
+                                </tr>
+                            </table>
                         </div>
                         <div class="notification">
                             <div style="display: flex;">
                                 ${e[2] > 0 ?
-                `<img src="../static/img/notifications.svg" width="30px" alt="notification">
+                `<span style="font-size: 25px;">🔔</span>
                                 <p>${e[2]}</p>`
                 : ''}
 
@@ -114,6 +119,5 @@ function addevento() {
         }
     }))
 }
-
 
 printar()

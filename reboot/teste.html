@@ -1,41 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 100vh;
+      background: linear-gradient(45deg, rgba(255, 40, 40, 0.8), rgba(144, 51, 161, 0.3), white);
+    }
+.lista-alert {
+    list-style: none; 
+    margin: 0;
+    padding: 0;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+
+    max-width: 400px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+    font-family: "Inter", Arial, sans-serif;
+}
+
+.lista-alert li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f1f1;
+
+    font-size: 15px;
+    color: #333;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.lista-alert li:last-child {
+    border-bottom: none;
+}
+
+.lista-alert li::before {
+    content: "•";
+    color: #4f46e5;
+    font-size: 22px;
+    line-height: 0;
+}
+
+.lista-alert li:hover {
+    color: #4f46e5;
+    transform: translateX(4px);
+    cursor: pointer;
+}
+  </style>
 </head>
-<body>
-    <input type="text" id="busca" placeholder="Digite um nome..." />
 
-<ul id="resultados"></ul>
+<body class="fundo">
+  <button onclick="teste()">fundo</button>
 
-<script>
-  const nomes = ['Ana', 'Bruno', 'Carlos', 'Daniela', 'Eduardo', 'Fernanda'];
+  <ul class="estilo-profissional">
+    <li>Item profissional 1</li>
+    <li>Item elegante 2</li>
+    <li>Item moderno 3</li>
+</ul>
 
-  const input = document.getElementById('busca');
-  const ul = document.getElementById('resultados');
+  <script>
+    let cod = false
+    const fundo = document.getElementsByClassName('fundo')[0]
 
-  input.addEventListener('input', function () {
-    const termo = this.value.toLowerCase();
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-    const resultados = nomes.filter(nome =>
-      nome.toLowerCase().includes(termo)
-    );
+    async function teste() {
+      cod = !cod
 
-    mostrarResultados(resultados);
-  });
-
-  function mostrarResultados(lista) {
-    ul.innerHTML = '';
-
-    lista.forEach(nome => {
-      const li = document.createElement('li');
-      li.textContent = nome;
-      ul.appendChild(li);
-    });
-  }
-</script>
-
+      if (cod) {
+        for (let i = 1; i < 100; i++) {
+          await delay(0.5)
+          fundo.style.background = `linear-gradient(${45 + i}deg, rgba(255, 40, 40, ${0.8 - i * 0.01 > 0.3 ? 0.8 - i * 0.01 : 0.3}), rgba(144, 51, 161, ${0.3 - i * 0.1 > 0.1 ? 0.3 - i * 0.1 : 0.1}), white)`
+        }
+      } else {
+        for (let i = 1; i < 100; i++) {
+          await delay(0.5)
+          fundo.style.background = `linear-gradient(${145 - i}deg, rgba(255, 40, 40, ${0.3 + i * 0.01 < 0.8 ? 0.3 + i * 0.01 : 0.8}), rgba(144, 51, 161, ${0.1 + i * 0.1 < 0.3 ? 0.1 + i * 0.1 : 0.3}), white)`
+        }
+      }
+    }
+  </script>
 </body>
+
 </html>

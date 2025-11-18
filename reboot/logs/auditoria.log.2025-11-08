@@ -1,0 +1,3 @@
+{"usuario": "fabio", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-08T17:46:15.347238"}
+{"usuario": "fabio", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-08T17:48:30.194475"}
+{"usuario": "helder", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-08T17:48:34.536798"}

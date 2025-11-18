@@ -1,0 +1,7 @@
+{"usuario": "helder", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-04T13:35:07.710325"}
+{"usuario": "helder", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-04T13:35:52.250201"}
+{"usuario": "fabio", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-04T13:36:18.673708"}
+{"usuario": "fabio", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-04T13:47:44.964764"}
+{"usuario": "fabio", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-04T14:40:57.574284"}
+{"usuario": "helder", "acao": "login_sucesso", "ip": "10.90.178.55", "timestamp": "2025-11-04T14:56:50.100664"}
+{"usuario": "helder", "acao": "login_sucesso", "ip": "10.90.178.55", "timestamp": "2025-11-04T15:47:10.925199"}
