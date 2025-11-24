@@ -1,0 +1,5 @@
+{"usuario": "Helder Louren\u00e7o", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-20T14:13:20.351152"}
+{"usuario": "Helder Louren\u00e7o", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-20T14:17:53.905775"}
+{"usuario": "guarita_1", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-20T16:28:30.742739"}
+{"usuario": "guarita_1", "acao": "logout", "ip": "127.0.0.1", "timestamp": "2025-11-20T16:31:14.347571"}
+{"usuario": "Fabio Negrelli", "acao": "login_sucesso", "ip": "127.0.0.1", "timestamp": "2025-11-20T16:31:18.822408"}

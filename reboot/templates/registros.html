@@ -7,6 +7,7 @@
   <title>registros</title>
   <link rel="stylesheet" type="text/css" href="../static/css/style.css">
   <link rel="stylesheet" type="text/css" href="../static/css/list.css">
+
 </head>
 
 <body style="background-color: white;">
@@ -111,41 +112,7 @@
           <table border="1" class="table"></table>
 
         </div>
-        <div class="info-auth" style="display: none;">
-          <h4 id="info-aluno">O aluno é menor de idade</h4>
-          <p style="padding: 5px;border-left: 3px solid blue;border-radius: 3px;background-color: aliceblue;">
-            Um número de 7 carácteres foi enviado para o responsavel. Para continuar, insira-o no campo
-            abaixo.
-          </p><br>
-          <p>Obs: peça ao aluno ou para coordenação que se comunique com o responsavel para adquirir o código.</p>
-          <br>
-          <div style="text-align: left; width: 100%;padding: 0 10px;display: flex;" id="checkbox"></div><br>
-
-          <form action="/autorizar-pelo-responsavel/{{curso[0] if curso else 0}}" method="post"
-            style="display: flex;flex-direction: column;">
-            <input type="hidden" id="idStatus" name="id">
-            <input type="hidden" id="idAuth" name="auth">
-            <input type="number" class="inp2" placeholder="Insira o código aqui" name="cod" maxlength="7" minlength="7"
-              required>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            {% for msg, tipo in messages %}
-            {% if tipo=='vulneravel' %}
-            <p style="color: red; font-weight: bold;">{{msg}}</p>
-            {% endif %}
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-            <div style="display: flex;justify-content: center;align-items: center;padding: 10px;">
-              <button class="btn-padrao" type="submit">
-                <span class="shadow"></span>
-                <span class="edge"></span>
-                <span class="front text"> confirmar
-                </span>
-              </button>
-            </div>
-          </form>
-        </div>
+        
       </div>
       <div class="cod-modal">
         <p style="color: white;margin-right: 5px;" id="msg-check"></p>
@@ -195,35 +162,35 @@
       </div>
       {% if user[4] != 2 %}
       <div class="select-container">
-      {% else %}
-      <br>
-      <div class="select-container" style="display: none;">
-      {% endif %}
-        <label class="select-label">Ano:</label>
-        <div class="select-wrapper">
-          <select id="selectAno" onchange="filtroItens()" class="custom-select"></select>
-        </div>
-        <label class="select-label">Mês:</label>
-        <div class="select-wrapper">
-          <select id="selectMes" onchange="filtroItens()" class="custom-select">
-            <option value="1">Janeiro</option>
-            <option value="2">Fevereiro</option>
-            <option value="3">Março</option>
-            <option value="4">Abril</option>
-            <option value="5">Maio</option>
-            <option value="6">Junho</option>
-            <option value="7">Julho</option>
-            <option value="8">Agosto</option>
-            <option value="9">Setembro</option>
-            <option value="10">Outubro</option>
-            <option value="11">Novembro</option>
-            <option value="12">Dezembro</option>
-          </select>
+        {% else %}
+        <br>
+        <div class="select-container" style="display: none;">
+          {% endif %}
+          <label class="select-label">Ano:</label>
+          <div class="select-wrapper">
+            <select id="selectAno" onchange="loadItems()" class="custom-select"></select>
+          </div>
+          <label class="select-label">Mês:</label>
+          <div class="select-wrapper">
+            <select id="selectMes" onchange="loadItems()" class="custom-select">
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="container"></div>
+      <div class="container"></div>
   </main>
 
   <footer>

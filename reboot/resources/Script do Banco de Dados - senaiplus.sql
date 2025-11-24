@@ -72,3 +72,14 @@ CREATE TABLE if NOT EXISTS cursos (
 	cenarios VARCHAR(255)DEFAULT '[0,0,0]',
 	ativo INT(11) NOT NULL DEFAULT 1
 );
+
+DROP TABLE if EXISTS notification;
+CREATE TABLE if NOT EXISTS notification (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY(id),
+	nome VARCHAR(255),
+	id_curso INT(11),
+	auth VARCHAR(7) CHECK (caso IN ('Saída', 'Entrada')),
+	acao VARCHAR(255),
+	ativo INT(11) NOT NULL DEFAULT 1
+);

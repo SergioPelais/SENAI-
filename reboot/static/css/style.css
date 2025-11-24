@@ -65,7 +65,6 @@ footer {
     color: aliceblue;
     padding: 5px;
     width: 100%;
-    height: 35px;
     position: relative;
     z-index: 1000;
 }
@@ -159,7 +158,7 @@ footer {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, rgba(255, 207, 207,0.5), rgba(255,255,255,0.5));
+    background: linear-gradient(135deg, rgba(255, 207, 207, 0.5), rgba(255, 255, 255, 0.5));
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -204,6 +203,7 @@ footer {
         opacity: 1;
     }
 }
+
 @keyframes loading {
     100% {
         opacity: 1;
@@ -227,6 +227,7 @@ footer {
     border-left: 3px solid #9c32ff;
     border-bottom: 3.5px solid #9c32ff;
 }
+
 @keyframes alert {
     100% {
         transform: translateX(110%);
@@ -235,28 +236,30 @@ footer {
 }
 
 #btnTopo {
-  position: fixed;
-  top: 0;
-  right: 5px;
-  padding: 0 5px;
-  font-size: 18px;
-  background: #333;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  opacity: 0;
-  z-index: 100;
-  transition: 0.2s;
+    position: fixed;
+    top: 0;
+    right: 5px;
+    padding: 0 5px;
+    font-size: 18px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    opacity: 0;
+    z-index: 100;
+    transition: 0.2s;
 }
 
-.abrirTopo{
+.abrirTopo {
     animation: abrirBtn 1s forwards;
 }
-.fecharTopo{
+
+.fecharTopo {
     animation: fecharBtn 1s forwards;
 }
+
 @keyframes abrirBtn {
     100% {
         transform: translateY(60px);
@@ -264,12 +267,14 @@ footer {
         opacity: 0.8;
     }
 }
+
 @keyframes fecharBtn {
     0% {
         transform: translateY(60px);
         opacity: 0.8;
         display: flex;
     }
+
     100% {
         transform: translateY(0);
         opacity: 0;
@@ -278,5 +283,144 @@ footer {
 }
 
 #btnTopo:hover {
-  background-color: #8e8e8e;
+    background-color: #8e8e8e;
+}
+
+#btn-notf{
+    position: fixed;
+    z-index: 98;
+    top: 60px;
+    left: 10px;
+    background-color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px #e0ff32;
+    cursor: pointer;
+}
+
+.notification {
+    display: none;
+    opacity: 0;
+    position: fixed;
+    z-index: 99;
+    top: 60px;
+    left: 10px;
+    width: 300px;
+    height: 250px;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(144, 51, 161, 0.5);
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+#fechar-notf {
+    background-color: #999;
+    border-radius: 10px;
+    transform: rotate(180deg);
+    transition: 0.3s;
+    cursor: pointer;
+}
+#fechar-notf:hover{
+    background-color: #ccc;
+    transform: scale(1.1) rotate(180deg);
+}
+
+.abrir-notf {
+    animation: abrirNotf 0.5s forwards;
+}
+
+.abrir-notf-box {
+    display: block;
+    animation: abrirNotfBox 2s forwards 0.3s;
+}
+
+.fechar-notf-box {
+    display: block;
+    animation: fecharNotfBox 1s forwards;
+}
+
+@keyframes abrirNotf {
+    100% {
+        width: 300px;
+        border-radius: 10px;
+        box-shadow: none;
+    }
+}
+
+@keyframes abrirNotfBox {
+    0% {
+        height: 50px;
+    }
+    100% {
+        height: 250px;
+        opacity: 1;
+    }
+}
+
+@keyframes fecharNotfBox {
+    0% {
+        height: 250px;
+        opacity: 1;
+        overflow: hidden;
+    }
+    100% {
+        overflow: hidden;
+        width: 50px;
+        height: 50px;
+        opacity: 0;
+        display: none;
+    }
+}
+
+.lista-alert {
+    list-style: none;
+    margin: 5px;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 60vh;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 10px;
+
+    max-width: 400px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+    font-family: "Inter", Arial, sans-serif;
+}
+
+.lista-alert li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 5px;
+    border-bottom: 1px solid #f1f1f1;
+
+    font-size: 15px;
+    color: #333;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.lista-alert li:last-child {
+    border-bottom: none;
+}
+
+.lista-alert li::before {
+    content: "•";
+    color: #4f46e5;
+    font-size: 22px;
+    line-height: 0;
+}
+
+.lista-alert li:hover {
+    color: #4f46e5;
+    transform: translateX(4px);
+    cursor: pointer;
 }

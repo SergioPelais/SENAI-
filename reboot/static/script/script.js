@@ -26,3 +26,20 @@ btnTopo.addEventListener("click", () => {
     behavior: "smooth"
   });
 });
+
+
+const bntNotf = document.getElementById('btn-notf')
+const boxNotf = document.getElementsByClassName('notification')[0]
+const closeNotf = document.getElementById('fechar-notf')
+function abrirNotf(){
+  bntNotf.classList.add('abrir-notf')
+  boxNotf.classList.add('abrir-notf-box')
+  boxNotf.classList.remove('fechar-notf-box')
+
+}
+function fecharNotf(){
+  boxNotf.classList.add('fechar-notf-box')
+  bntNotf.classList.remove('abrir-notf')
+  boxNotf.classList.remove('abrir-notf-box')
+
+}

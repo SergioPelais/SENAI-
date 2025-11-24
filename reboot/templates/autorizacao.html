@@ -29,8 +29,25 @@
         <div>
             <button onclick="teste()" id="btn-menu"><img src="../static/img/menu.svg" width="40px" alt="Menu"></button>
         </div>
-
     </header>
+    <button id="btnTopo">
+        <img src="../static/img/eject.svg" width="30px" alt="">
+    </button>
+    <div id="btn-notf" onclick="abrirNotf()">
+        <img src="../static/img/notifications.svg" width="35px" alt="">
+    </div>
+    <div class="notification">
+        <div style="display: flex;flex-direction: row;margin: 5px;align-items: center;justify-content: center;">
+            <h3 style="text-align: center;flex: 3;color: #460739;">Ultimas ações</h3>
+            <img src="../static/img/voltar.svg" id="fechar-notf" onclick="fecharNotf()" width="30px" alt="">
+        </div>
+        <ul class="lista-alert">
+            <li>oi</li>
+            <li>oi</li>
+            <li>oi</li>
+            <li>oi</li>
+        </ul>
+    </div>
     <div class="load">
         <div class="spinner"></div>
         <div class="loading-text">Aguarde só um momento...</div>
@@ -41,9 +58,9 @@
     {% if tipo=='email' %}
     {% if msg=='Responsável notificado com sucesso!' %}
     <p class="alert" style="background: rgb(95, 255, 95);">
-    {% else %}
+        {% else %}
     <p class="alert" style="background: rgb(255, 242, 95);">
-    {% endif %}
+        {% endif %}
         {{ msg }}
     </p>
     {% endif %}
@@ -115,7 +132,8 @@
                     <div class="info">
                         <p id="msg-caso"></p>
                         <div id="check-box">
-                            <br><input type="checkbox" onclick="verificar()" name="receber_codigo" id="chek" value="sim" checked>
+                            <br><input type="checkbox" onclick="verificar()" name="receber_codigo" id="chek" value="sim"
+                                checked>
                             <i>Solicitar código de
                                 validação</i>
                         </div>
@@ -169,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="menu-acesso">
                 <div style="text-align: center; margin-top: 20px;">
                     <h2>Acessos</h2>
@@ -181,7 +199,7 @@
                     <li><a href="/registros"><button class="btn">AUTORIZAÇÕES EM GERAL</button></a></li>
                     {% endif %}
                 </ul>
-            </div>
+            </div><img src="" alt="">
         </div>
     </main>
     <footer>
@@ -190,7 +208,7 @@
     <script src="../static/script/script.js"></script>
     <script>
         const bd = JSON.parse('{{ bd | safe }}');
-        const menu = ['{{menu}}','{% with messages = get_flashed_messages() %}{% if messages %}{% for msg, tipo in messages %}{% if tipo=="hello" %}1{% endif %}{% endfor %}{% endif %}{% endwith %}']
+        const menu = ['{{menu}}', '{% with messages = get_flashed_messages() %}{% if messages %}{% for msg, tipo in messages %}{% if tipo=="hello" %}1{% endif %}{% endfor %}{% endif %}{% endwith %}']
 
         function toggleSenha() {
             const senhaInput = document.getElementById("senha");
@@ -207,6 +225,12 @@
             }
         }
 
+        let msgError = "{% with messages = get_flashed_messages() %}{% if messages %}{% for msg, tipo in messages %}{% if tipo=='email-error' %}{{msg}}{% endif %}{% endfor %}{% endif %}{% endwith %}"
+        
+        if (msgError) {
+            alert(msgError)
+        }
+        
     </script>
     <script src="../static/script/auth.js"></script>
 </body>

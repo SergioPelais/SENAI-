@@ -12,30 +12,61 @@ conectBD('SELECT * FROM nome-da-tabela  WHERE id = 1', 1)
 conectBD('SELECT * FROM nome-da-tabela', 2)
 ________________________________________________________________________________
 
-função: msg()
-serve para controlar a repetição da mensagem
+-- contas de funcionarios para simulação 
 
-mensagem[0] = 'recebe a mensagem'
-
-msg() #garante que a mensagem vai ser exibida só uma vez
-msg(3) #garante que a mensagem vai ser exibida *3
-________________________________________________________________________________
-
-📤 Mensagem para saída antecipada (fora do horário padrão)
-🅰️ Sem código de validação:
-
-Prezado(a) responsável, Informamos que o(a) aluno(a) [Nome do Aluno] solicitou saída antecipada da escola no dia [Data], fora do horário regular. Solicitamos que confirme esta informação e esteja ciente da responsabilidade em relação à saída do(a) estudante. Atenciosamente, [Nome da Escola ou Secretaria]
-
-🅱️ Com código de validação:
-
-Prezado(a) responsável, O(a) aluno(a) [Nome do Aluno] solicitou saída antecipada da escola no dia [Data], fora do horário padrão. Para confirmar a autorização, utilize o código de validação abaixo: Código: [XXXXXX] Caso não tenha autorizado esta saída, por favor, entre em contato imediatamente com a coordenação. Atenciosamente, [Nome da Escola ou Secretaria]
-
-
-
-
-
-
-
-⏰ Mensagem para entrada tardia (atraso)
-
-Prezado(a) responsável, Informamos que o(a) aluno(a) [Nome do Aluno] entrou na escola em horário diferente do início regular das aulas, no dia [Data]. O atraso foi registrado às [Horário da Entrada]. Pedimos atenção especial quanto aos horários escolares para garantir o bom andamento do aprendizado. Atenciosamente, [Nome da Escola ou Secretaria]
+DROP TABLE if EXISTS funcionarios;
+CREATE TABLE if NOT EXISTS funcionarios (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY(id),
+	nome VARCHAR(255),
+	nif INT(7),
+	senha VARCHAR(255),
+	autoridade INT (1) DEFAULT 1,
+	cursos_fixados VARCHAR(255)DEFAULT '[]',
+	ativo INT(11) NOT NULL DEFAULT 1
+);
+INSERT INTO funcionarios (
+    nome,
+    nif,
+    senha,
+    autoridade
+) VALUES (
+    'Helder Lourenço',
+    1234567,
+    '1234',
+    1
+);
+INSERT INTO funcionarios (
+    nome,
+    nif,
+    senha,
+    autoridade
+) VALUES (
+    'guarita_1',
+    3456789,
+    '1234',
+    2
+);
+INSERT INTO funcionarios (
+    nome,
+    nif,
+    senha,
+    autoridade
+) VALUES (
+    'guarita_2',
+    4567890,
+    '1234',
+    2
+);
+INSERT INTO funcionarios (
+    nome,
+    nif,
+    senha,
+    autoridade
+) VALUES (
+    'Fabio Negrelli',
+    2345678,
+    '1234',
+    3
+);
+SELECT * FROM funcionarios;

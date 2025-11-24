@@ -105,7 +105,6 @@ button {
 .item {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
     position: relative;
     background-color: white;
 }
@@ -213,7 +212,6 @@ button {
     right: 0;
     bottom: 0;
     left: 0;
-    display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(150, 150, 150, 0.5));
@@ -232,18 +230,17 @@ button {
     flex-direction: column;
     font-size: 1.2rem;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
 }
 
 .head-modal {
     display: flex;
-    background-color: rgb(255, 209, 209);
+    background-color: rgb(231, 64, 64);
     height: 50px;
     justify-content: center;
     align-items: center;
     border-top-right-radius: 20px;
     border-top-left-radius: 10px;
+    color: white;
 }
 
 .head-modal h3 {
@@ -258,7 +255,7 @@ button {
     border-bottom-left-radius: 20px;
     padding: 3px;
     transition: 0.3s;
-    background-color: #fff;
+    background-color: #d94747;
 }
 
 #sair-modal:hover {
@@ -334,21 +331,15 @@ button {
 
 /* informações do modal */
 .main-modal {
-    min-height: 400px;
-    max-height: 90%;
-    overflow: auto;
+    padding:10px 20px;
+    max-height: 400px;
+    overflow-y: auto;
     flex: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .info-auth {
     width: 100%;
-    margin: 10px;
-    padding: 10px;
-    border-top: 1px solid #555;
-    border-bottom: 1px solid #555;
+    height: 100%;
     text-align: center;
 }
 
@@ -359,12 +350,12 @@ button {
     border-left: 3px solid blue;
     text-align: left;
     overflow-y: auto;
-    height: 100px;
+    height: 50px;
 }
 
 .nav-modal {
     display: flex;
-    background-color: rgb(255, 190, 190);
+    background-color: rgb(255, 106, 106);
     border-bottom-left-radius: 20px;
     padding: 5px 20px;
 }
@@ -535,8 +526,8 @@ table th:last-child {
 .resultado-form {
     width: 100%;
     max-width: 420px;
-    padding: 18px;
-    margin: 20px auto;
+    padding: 5px 18px;
+    margin: auto;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
@@ -615,11 +606,12 @@ table th:last-child {
 
 /* Nome do aluno */
 .aluno {
-    background: #a8ffe2;
+    background: #e3fff6;
     padding: 6px 10px;
     border-radius: 6px;
     margin: 8px 0;
     font-weight: 600;
+    font-size: 1.2rem;
 }
 
 /* Linhas de informação */
@@ -944,51 +936,4 @@ table th:last-child {
     .item:hover .boxStatus-info {
         display: block;
     }
-}
-
-.lista-alert {
-    list-style: none; 
-    margin: 5px;
-    padding: 0;
-    overflow-y: auto;
-    max-height: 60vh;
-
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 10px;
-
-    max-width: 400px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
-    font-family: "Inter", Arial, sans-serif;
-}
-
-.lista-alert li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 12px 5px;
-    border-bottom: 1px solid #f1f1f1;
-
-    font-size: 15px;
-    color: #333;
-    transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.lista-alert li:last-child {
-    border-bottom: none;
-}
-
-.lista-alert li::before {
-    content: "•";
-    color: #4f46e5;
-    font-size: 22px;
-    line-height: 0;
-}
-
-.lista-alert li:hover {
-    color: #4f46e5;
-    transform: translateX(4px);
-    cursor: pointer;
 }

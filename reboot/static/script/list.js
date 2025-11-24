@@ -13,74 +13,63 @@ const selectAno = document.getElementById("selectAno");
 const cenario = document.querySelectorAll('.radio-item')
 
 async function filtroItens() {
-    if(autoridade!=2){
-    document.getElementsByClassName('alert-qnt')[0].style.display = 'none'
-    }
-    let lista = bd_authLista.filter(e => {
-        const [ano, mes] = e[4].split("-");
-        let dt = [parseInt(ano), parseInt(mes)];
-
-        if (dt[0] == selectAno.value) {
-            if (dt[1] == selectMes.value) {
-                return e
-            }
-        }
-    })
-    authLista = lista
+    authLista = bd_authLista
 
     cenario.forEach(i => {
-        if (i.checked && parseInt(i.value)!=0) {
+        if (i.checked && parseInt(i.value) != 0) {
             let cod = statusLista.filter(e => e[2] == parseInt(i.value)).map(e => e[1])
             authLista = authLista.filter(item => cod.includes(item[0]));
         }
     })
-    if(autoridade!=2){
-    const resultMap = {};
-    for (const item of lista) {
-        const nome = item[2][1];
-        const caso = item[1];
-        const curso = item[9];
 
-        const chave = `${nome}-${curso}-${caso}`;
+    printar(authLista)
 
-        if (!resultMap[chave]) {
-            resultMap[chave] = {
-                nome,
-                curso,
-                caso,
-                quantidade: 0
-            };
+    if (autoridade != 2) {
+        const resultMap = {};
+        for (const item of bd_authLista) {
+            const nome = item[2][1];
+            const caso = item[1];
+            const curso = item[9];
+
+            const chave = `${nome}-${curso}-${caso}`;
+
+            if (!resultMap[chave]) {
+                resultMap[chave] = {
+                    nome,
+                    curso,
+                    caso,
+                    quantidade: 0
+                };
+            }
+
+            resultMap[chave].quantidade++;
         }
 
-        resultMap[chave].quantidade++;
+        let newList = Object.values(resultMap).map(obj => [
+            obj.nome,
+            obj.curso,
+            obj.caso,
+            obj.quantidade
+        ]);
+
+        newList = newList.filter(item => item[3] >= 3);
+
+        const btn = document.getElementsByClassName('alert-qnt')[0]
+        const ul = document.getElementsByClassName('lista-alert')[0]
+        ul.innerHTML = ''
+        if (newList.length) {
+            await delay(100)
+            btn.style.display = 'flex'
+            newList.forEach(item => {
+                const li = document.createElement("li");
+                li.innerHTML = `<div><p><u>${item[0]}</u></p><p>curso: ${item[1]}</p><p>solicitação: ${item[2]}</p><p><b>quantidade: ${item[3]}</b></p></div>`;
+                ul.appendChild(li);
+            });
+
+        } else {
+            btn.style.display = 'none'
+        }
     }
-
-    let newList = Object.values(resultMap).map(obj => [
-        obj.nome,
-        obj.curso,
-        obj.caso,
-        obj.quantidade
-    ]);
-
-    newList = newList.filter(item => item[3] >= 3);
-
-    const btn = document.getElementsByClassName('alert-qnt')[0]
-    const ul = document.getElementsByClassName('lista-alert')[0]
-    ul.innerHTML = ''
-    if (newList.length) {
-        await delay(100)
-        btn.style.display = 'flex'
-        newList.forEach(item => {
-            const li = document.createElement("li");
-            li.innerHTML = `<div><p><u>${item[0]}</u></p><p>curso: ${item[1]}</p><p>solicitação: ${item[2]}</p><p><b>quantidade: ${item[3]}</b></p></div>`;
-            ul.appendChild(li);
-        });
-
-    } else {
-        btn.style.display = 'none'
-    }
-    }
-    printar(authLista)
 }
 
 function formatoHora(e) {
@@ -164,17 +153,17 @@ function abrirModal(i = 0) {
     boxModal.classList.remove('fechar-boxModal')
 }
 function getAuth(id) {
-    abrirModal()
-    document.getElementsByClassName('radio2')[0].checked = true
-    document.getElementsByClassName('radio2')[1] = false
-    select(0)
-
     const statusAluno = statusLista.find(u => u[1] === id)
-    let aluno = authLista.find(u => u[0] === id)
-    registros(statusAluno, aluno[8], aluno[1], aluno[2][1], statusAluno[5])
-    document.getElementById('idStatus').value = statusAluno[0]
-    document.getElementById('idAuth').value = id
-    if (`${statusAluno[5]}`.length != 7) {
+    if (`${statusAluno[5]}`.length != 7 && statusAluno[5]!=3) {
+        abrirModal()
+        document.getElementsByClassName('radio2')[0].checked = true
+        document.getElementsByClassName('radio2')[1] = false
+        select(0)
+
+
+        let aluno = authLista.find(u => u[0] === id)
+        registros(statusAluno, aluno[8], aluno[1], aluno[2][1], statusAluno[5])
+
         textoModal(id)
         chek.innerHTML = `
         <input type="checkbox" onclick="visto(${curso},${statusAluno[0]})" id="checkboxInput">
@@ -183,8 +172,6 @@ function getAuth(id) {
         document.getElementsByClassName('info-auth')[0].style.display = 'block'
         document.getElementsByClassName('nav-modal')[0].style.display = 'none'
         document.getElementsByClassName('cod-modal')[0].style.display = 'none'
-        document.getElementsByClassName('info-auth')[2].style.display = 'none'
-        document.getElementById('checkbox').innerHTML = ``
 
         const checkbox = document.getElementById('checkboxInput')
         const msgChek = document.getElementById('msg-check')
@@ -216,22 +203,10 @@ function getAuth(id) {
         } else if (aluno[1] == 'Entrada' && autoridade == 1) {
             document.getElementsByClassName('cod-modal')[0].style.display = 'flex'
         }
-    } else {
-        document.getElementById('info-aluno').textContent = 'O aluno ' + aluno[2][1] + ' do curso ' + aluno[9] + ', ainda é cabaço'
-        document.getElementsByClassName('info-auth')[0].style.display = 'none'
-        document.getElementsByClassName('nav-modal')[0].style.display = 'none'
-        document.getElementsByClassName('cod-modal')[0].style.display = 'none'
-        document.getElementsByClassName('info-auth')[2].style.display = 'block'
-    //    document.getElementById('checkbox').innerHTML = `
-    //    <label>
-    //        <input type="checkbox" id="chek2" onclick="verCod()"> ver código por conta?
-    //    </label>
-    //    <p id="cod" style="margin:0 10px;background-color:black;">[ ${statusAluno[5]} ]</p>
-    //`
     }
 }
 
-function registros(status, docente, caso, aluno,cod) {
+function registros(status, docente, caso, aluno, cod) {
     function dataHora(dataOriginal) {
         if (!dataOriginal) {
             return false
@@ -261,10 +236,10 @@ function registros(status, docente, caso, aluno,cod) {
         } else {
             msg = `• Responsável não foi notificado. Liberação efetuada por fora do sistema, na data ${dataHora(status[9])[0]} às ${dataHora(status[9])[1]}`
         }
-    } else if(cod==2) {
-        msg = `<div class="info-dt-box"><p>• Responsável notificado</p> <span class="info-dt-btn">i<span class="info-dt"">${dataHora(status[8])[0]} às ${dataHora(status[8])[1]}</span></span></div><div class="info-dt-box" style="color:red"><p>Saída de menor autorizada fora do sistema.</p></div>`
+    } else if (cod == 2) {
+        msg = `${dataHora(status[8])[0] ? `<div class="info-dt-box"><p>• Responsável notificado</p> <span class="info-dt-btn">i<span class="info-dt"">${dataHora(status[8])[0]} às ${dataHora(status[8])[1]}</span></span></div>` : '<div class="info-dt-box"><p>• Responsável não foi notificado via sistema</p></div>'}<div class="info-dt-box" style="color:red"><p>Saída de menor autorizada fora do sistema.</p></div>`
     } else {
-        msg = `<div class="info-dt-box"><p>• Responsável notificado</p> <span class="info-dt-btn">i<span class="info-dt"">${dataHora(status[8])[0]} às ${dataHora(status[8])[1]}</span></span></div>`
+        msg = dataHora(status[8])[0] ? `<div class="info-dt-box"><p>• Responsável notificado</p> <span class="info-dt-btn">i<span class="info-dt"">${dataHora(status[8])[0]} às ${dataHora(status[8])[1]}</span></span></div>` : '<div class="info-dt-box"><p>• Responsável não foi notificado via sistema</p></div>'
     }
 
     document.getElementById('msg-resp').innerHTML = msg
@@ -420,7 +395,7 @@ const chek = document.getElementById('chek')
 function printar(lista) {
     container.innerHTML = ''
 
-    if(!lista.length){
+    if (!lista.length) {
         container.innerHTML = '<h3>Nenhuma solicitação foi encontrada...</h3>'
         return
     }
@@ -437,19 +412,19 @@ function printar(lista) {
         let horario = `${horas}:${minutos}:${segundos}`;
 
         container.innerHTML += `
-        <div class="item" onclick="getAuth(${e[0]})" style="${`${statusAluno[5]}`.length == 7 ? 'background-color:rgba(255, 50, 43, 1)' : ''}">
+        <div class="item" onclick="getAuth(${e[0]})" style="${`${statusAluno[5]}`.length == 7 || statusAluno[5]==3? 'background-color:rgba(255, 50, 43, 1)' : 'cursor: pointer;'}">
             <div class="boxPreview">
             <img class="imagePreview" src="${`/imagem/${e[2][0]}` ? `/imagem/${e[2][0]}` : '../static/img/user.svg'}" alt="foto-do-aluno(a)">
             <p class="cenario-item"
-            style="background-color: ${statusAluno[2] == 1 ? 'rgba(0, 0, 255, 0.5)' : statusAluno[2] == 2 ? 'rgba(0, 255, 0, 0.5)' : 'rgba(255, 170, 0, 0.8)'};color:white;"
+            style="background-color: ${statusAluno[5]==3?'rgba(255, 0, 0, 0.5)':statusAluno[2] == 1 ? 'rgba(0, 0, 255, 0.5)' : statusAluno[2] == 2 ? 'rgba(0, 255, 0, 0.5)' : 'rgba(255, 170, 0, 0.8)'};color:white;"
             >
-            <b>${statusAluno[2] == 1 ? 'Em espera' : statusAluno[2] == 2 ? 'ação confirmada' : 'ação pendente'}</b>
+            <b>${statusAluno[5]==3?'Negado':statusAluno[2] == 1 ? 'Em espera' : statusAluno[2] == 2 ? 'ação confirmada' : 'ação pendente'}</b>
             </p>
             </div>
             <div class="boxInfo" style="display:flex;">
             <div>
-            ${`${statusAluno[5]}`.length == 7 ? `
-                <h2 style="color:white;text-align: center;margin-bottom:5px;">Esperando autorização do responsável</h2>
+            ${`${statusAluno[5]}`.length == 7  || statusAluno[5]==3? `
+                <h2 style="color:white;text-align: center;margin-bottom:5px;">${statusAluno[5]!=3?'Esperando autorização do responsável':'Responsável não autorizou'}</h2>
                 <h3 style="background-color:rgba(255,255,255); border-radius:5px;margin:auto; padding:0 3px;">Aluno: ${e[2][1]}</h3>
             `: `
             </div>
@@ -460,8 +435,8 @@ function printar(lista) {
             <input type="time" class="inp-text" value="${horario}" readonly>
             </div>
             <div class="boxStatus">
-            <p>${statusAluno[8] ? '👤' : ''}</p>
-            <p>${statusAluno[7] ? '🧑‍💼' : ''}</p>
+            <p>${statusAluno[8] ? '<img src="../static/img/pai.svg" alt="Responsável" width="30px">' : ''}</p>
+            <p>${statusAluno[7] ? '<img src="../static/img/homem.svg" alt="Coordenador" width="30px">' : ''}</p>
             <p>${statusAluno[3][1] == 1 && statusAluno[3] ? statusAluno[6] ? '👨‍🏫' : '' : statusAluno[6] ? '🛡️' : ''}</p>
             </div>
             </div>
@@ -481,9 +456,9 @@ function printar(lista) {
     })
 }
 
-const API_URL = `/get-items${curso ? "/" + curso : ''}`;
-
 async function loadItems() {
+    const API_URL = `/get-items${curso ? "/" + curso : ''}?dt=${[selectMes.value, selectAno.value]}`;
+
     const res = await fetch(API_URL);
     const [items, status] = await res.json();
     authLista = JSON.parse(items)
@@ -506,6 +481,6 @@ function loadingPage() {
         novaOpcao.textContent = dataAtual.getFullYear() - i;
         selectAno.appendChild(novaOpcao);
     }
+    loading()
 }
-loading()
 loadingPage()
